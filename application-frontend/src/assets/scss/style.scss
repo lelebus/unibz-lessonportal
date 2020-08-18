@@ -1,0 +1,41 @@
+// LAYOUT
+h1 {
+    margin-bottom: 1rem;
+}
+
+.center-container {
+    display: flex;
+    .center-x {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+// STYLE
+$primary: #EF5350;
+$secondary: #9CCC65;
+$button-new: #9C27B0;
+
+
+
+// ELEMENTS
+
+.v-data-table {
+    th.text-center.sortable {
+        padding-left: 34px;
+    }
+
+    tr.selected {
+        font-weight: bold;
+        background: $secondary !important;
+    }
+
+    .v-chip {
+        min-width: 65px;
+        margin: 0 auto;
+        font-weight: bold;
+        span.v-chip__content {
+            margin: 0 auto;
+        }
+    }
+}

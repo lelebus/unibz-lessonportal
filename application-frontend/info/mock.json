@@ -1,0 +1,55 @@
+{
+    "users": [
+        {
+            "id": 13,
+            "username": "valejordao",
+            "email": "vale@tina.com",
+            "password": "password",
+            "resetcount": 0,
+            "points": 0
+        }
+    ],
+    "lessons": [
+        {
+            "id": 45,
+            "title": "First Lesson",
+            "description": "This is a fantastic lesson to learn!",
+            "addedBy": 13,
+            "comments": [
+                {
+                    "timestamp": "13-12-1998",
+                    "username": "valejordao",
+                    "message": "Wow. Didn't expect this much value!"
+                },
+                {
+                    "timestamp": "13-12-1998",
+                    "username": "michaelJ",
+                    "message": "Amazing!"
+                }
+            ]
+        },
+        {
+            "id": 37,
+            "title": "Lesson nobody want to take",
+            "description": "",
+            "addedBy": 13
+        }
+    ],
+    "lessonslearned": [
+        {
+            "user": 13,
+            "lesson": 45,
+            "rating": "like"
+        },
+        {
+            "user": 1,
+            "lesson": 45,
+            "rating": "like"
+        },
+        {
+            "user": 56,
+            "lesson": 45,
+            "rating": "dislike"
+        }
+    ]
+}

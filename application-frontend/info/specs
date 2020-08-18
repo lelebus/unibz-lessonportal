@@ -1,0 +1,13 @@
+REST API:
+
+/lessons/:ID
+    - GET return lessons (return comments just on ID)
+    - POST create new lessons
+
+/lessons/learned/:ID
+    - GET return learnedlessons (return comments just on ID)
+    - POST add to learned lessons
+    - PUT add rating or comment to lesson
+
+/ranking
+    - GET return ranking list of users
