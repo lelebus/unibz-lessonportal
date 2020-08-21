@@ -1,0 +1,95 @@
+<template>
+  <v-row justify="center">
+    <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
+      <v-app-bar color="purple" elevate-on-scroll scroll-target="#comments-scrolling" dark>
+        <v-btn icon dark @click="dialog = false">
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
+        <v-toolbar-title>Comments</v-toolbar-title>
+      </v-app-bar>
+      <v-sheet id="comments-scrolling" ref="commentsScrolling" class="overflow-y-auto">
+        <v-container>
+          <template v-for="(item, index) in comments">
+            <v-row :key="item.timestamp">
+              <div class="comment">
+                <div class="header d-flex justify-space-between">
+                  <div class="font-weight-bold">{{item.username}}</div>
+                  <!-- <span class="grey--text text--darken-1">-</span> -->
+                  <div class="grey--text text--darken-1">{{item.timestamp}}</div>
+                </div>
+                <div class="message">{{item.message}}</div>
+              </div>
+            </v-row>
+            <v-divider v-if="index + 1< comments.length" :key="index"></v-divider>
+          </template>
+        </v-container>
+      </v-sheet>
+
+      <div class="input-section">
+        <v-container>
+          <v-textarea
+            class="mx-2"
+            v-model="commentMessage"
+            label="Comment this lesson"
+            rows="1"
+            color="red lighten-1"
+            auto-grow
+          >
+            <template slot="append-outer">
+              <v-btn @click="sendComment" icon color="red lighten-1">
+                <v-icon>mdi-send</v-icon>
+              </v-btn>
+            </template>
+          </v-textarea>
+        </v-container>
+      </div>
+    </v-dialog>
+  </v-row>
+</template>
+
+<script>
+export default {
+  name: "ModalComments",
+  props: {
+    comments: Array,
+  },
+  data: () => ({
+    dialog: false,
+    commentMessage: "",
+  }),
+  methods: {
+    sendComment() {
+      if (!this.commentMessage.length >= 1) {
+        return;
+      }
+      console.log("Comment sent");
+      // TODO send data
+      let returnedComment = {
+        timestamp: "Now",
+        username: "me",
+        message: this.commentMessage,
+      };
+      // TODO append comment and clear input
+      this.comments.push(returnedComment);
+      // TODO: scroll to bottom
+      this.commentMessage = "";
+    },
+  },
+};
+</script>
+
+<style scoped>
+.comment {
+  width: 100%;
+  padding: 2rem;
+}
+.comment .header {
+  margin-bottom: 1rem;
+}
+.comment .message {
+  max-width: 90%;
+}
+#comments-scrolling {
+  max-height: calc(100vh - 210px);
+}
+</style>

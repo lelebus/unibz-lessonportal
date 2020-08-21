@@ -5,7 +5,7 @@
         <h1 class="center-x">My Lessons</h1>
       </div>
       <div class="center-container">
-        <lesson-component class="center-x"></lesson-component>
+        <lesson-component class="center-x" filterMyLessons="true"></lesson-component>
       </div>
     </v-layout>
   </v-container>

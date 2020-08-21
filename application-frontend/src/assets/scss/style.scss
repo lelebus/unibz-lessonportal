@@ -24,11 +24,14 @@ $button-new: #9C27B0;
     th.text-center.sortable {
         padding-left: 34px;
     }
+    tr {
+        cursor: pointer;
 
-    tr.selected {
+    &.selected {
         font-weight: bold;
         background: $secondary !important;
     }
+}
 
     .v-chip {
         min-width: 65px;
@@ -39,3 +42,38 @@ $button-new: #9C27B0;
         }
     }
 }
+
+
+.v-dialog {
+    background: white;
+    
+    .input-section {
+
+    padding-top: 3rem;
+    padding-bottom: 1rem;
+    border-top: 3px solid #9c27b0;
+    background-color: white;
+    position: absolute;
+    bottom: 0;
+    background: white;
+        .container {
+
+        bottom: 0;
+    }
+    .v-input__control {
+        max-height: 80px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        .v-input__slot {
+            padding-top: 0.8rem;
+        }
+    }
+    .v-text-field__details {
+        display: none;
+    }
+}
+}
+
+.v-snack__content {
+    text-align: center;
+  }

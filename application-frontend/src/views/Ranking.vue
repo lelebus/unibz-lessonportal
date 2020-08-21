@@ -17,7 +17,10 @@ import RankingComponent from "@/components/Ranking";
 export default {
   name: "ranking",
   components: {
-      RankingComponent
+    RankingComponent,
   },
 };
 </script>
+
+<style scoped>
+</style>

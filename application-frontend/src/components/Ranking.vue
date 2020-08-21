@@ -31,15 +31,15 @@ export default {
           points: 3455,
         },
         {
-            position: 2,
+          position: 2,
           username: "lelebus",
           points: 3455,
         },
         {
-            position: 3,
+          position: 3,
           username: "lelebus",
           points: 3455,
-          currentUser: "selected"
+          currentUser: "selected",
         },
         {
           position: 4,
@@ -73,9 +73,18 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .v-data-table {
   width: 100%;
   max-width: 800px;
+}
+.v-data-table tr {
+  cursor: default
+}
+.v-data-table tbody tr.selected:hover {
+  background-color: #9CCC65 !important;
+}
+.v-data-table tbody tr:hover {
+  background-color: #E8F5E9 !important;
 }
 </style>
