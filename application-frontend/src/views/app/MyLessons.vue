@@ -12,10 +12,10 @@
 </template>
 
 <script>
-import LessonComponent from "@/components/Lessons";
+import LessonComponent from "@/components/app/Lessons";
 
 export default {
-  name: "lessons",
+  name: "MyLessons",
   components: {
     LessonComponent,
   },

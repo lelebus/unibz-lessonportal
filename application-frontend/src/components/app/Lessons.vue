@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import ModalLesson from "@/components/ModalLesson";
+import ModalLesson from "@/components/dialogs/ModalLesson";
 
 export default {
   name: "LessonComponent",
@@ -62,7 +62,7 @@ export default {
       selectedLesson: Object,
       headers: [
         { text: "Title", value: "title", align: "start" },
-        { text: "Completed", value: "completed", align: "center" },
+        { text: "Completed", value: "completed", align: "center", sortable: false },
         { text: "Likes", value: "likes", align: "center" },
         { text: "Dislikes", value: "dislikes", align: "center" },
       ],

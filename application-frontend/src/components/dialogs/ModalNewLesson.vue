@@ -50,8 +50,8 @@
 
 
 <script>
-import NotifySuccess from "@/components/NotifySuccess";
-import NotifyFailure from "@/components/NotifyFailure";
+import NotifySuccess from "@/components/snackbars/NotifySuccess";
+import NotifyFailure from "@/components/snackbars/NotifyFailure";
 
 export default {
   name: "LessonComponent",

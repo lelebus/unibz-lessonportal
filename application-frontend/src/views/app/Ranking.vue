@@ -12,10 +12,10 @@
 </template>
 
 <script>
-import RankingComponent from "@/components/Ranking";
+import RankingComponent from "@/components/app/Ranking";
 
 export default {
-  name: "ranking",
+  name: "Ranking",
   components: {
     RankingComponent,
   },

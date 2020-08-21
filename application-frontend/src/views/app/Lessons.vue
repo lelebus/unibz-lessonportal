@@ -27,8 +27,8 @@
 </template>
 
 <script>
-import LessonComponent from "@/components/Lessons";
-import ModalNewLesson from "@/components/ModalNewLesson";
+import LessonComponent from "@/components/app/Lessons";
+import ModalNewLesson from "@/components/dialogs/ModalNewLesson";
 
 export default {
   name: "Lessons",

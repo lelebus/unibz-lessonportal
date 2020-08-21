@@ -55,9 +55,9 @@
 </template>
 
 <script>
-import ModalComments from "@/components/ModalComments";
-import NotifySuccess from "@/components/NotifySuccess";
-import NotifyFailure from "@/components/NotifyFailure";
+import ModalComments from "@/components/dialogs/DialogComments";
+import NotifySuccess from "@/components/snackbars/NotifySuccess";
+import NotifyFailure from "@/components/snackbars/NotifyFailure";
 
 export default {
   name: "ModalLesson",

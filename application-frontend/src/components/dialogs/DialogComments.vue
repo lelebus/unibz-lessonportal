@@ -92,4 +92,7 @@ export default {
 #comments-scrolling {
   max-height: calc(100vh - 210px);
 }
+.input-section {
+  box-shadow: 0px 2px 4px 3px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+}
 </style>
