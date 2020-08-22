@@ -22,16 +22,6 @@ export default new Router({
             path: '/ranking',
             name: 'ranking',
             component: () => import('./app/Ranking.vue')
-        },
-        {
-            path: '/login',
-            name: 'login',
-            component: () => import('./Login.vue')
-        },
-        {
-            path: '/register',
-            name: 'registration',
-            component: () => import('./Registration.vue')
         }
     ]
 });
