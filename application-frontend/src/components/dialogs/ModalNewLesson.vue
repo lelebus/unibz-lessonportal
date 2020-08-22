@@ -12,7 +12,7 @@
                 <v-row>
                   <v-col cols="12">
                     <v-text-field
-                      v-model="title"
+                      v-model="lesson.title"
                       label="Title*"
                       :rules="[v => !!v || 'Title is required']"
                       required
@@ -22,7 +22,7 @@
                 <v-row>
                   <v-col col="12">
                     <v-textarea
-                      v-model="description"
+                      v-model="lesson.description"
                       outlined
                       name="description"
                       label="Description"
@@ -37,14 +37,17 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
-            <v-btn color="blue darken-1" text @click="addNewLesson" :disabled="!validFormInput">Save</v-btn>
+            <v-btn color="blue darken-1" text @click="addNewLesson" :disabled="!validFormInput" :loading="loading">Save</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
     </v-row>
 
     <notify-success ref="successNotification" message="Lesson has been created successfully"></notify-success>
-    <notify-failure ref="failureNotification" message="An error occurred in creating new lesson. Try again."></notify-failure>
+    <notify-failure
+      ref="failureNotification"
+      message="An error occurred in creating new lesson. Try again."
+    ></notify-failure>
   </div>
 </template>
 
@@ -61,33 +64,38 @@ export default {
   },
   methods: {
     addNewLesson() {
-      console.log("add new lesson");
-
-      if (!this.title) {
+      if (!this.lesson.title) {
         return;
       }
-
-      let success = true;
-      // TODO: save data
-      if (success == true) {
-        this.$refs.successNotification.snackbar = true;
-      } else {
-        this.$refs.failureNotification.snackbar = true;
-        return
-      }
+      
+      this.$store
+        .dispatch("createLesson", this.lesson)
+        .then(() => {
+          this.$refs.successNotification.snackbar = true;
+          this.validFormInput = false;
+          this.dialog = false;
+          this.$refs.form.reset();
+        })
+        .catch(() => {
+          this.$refs.failureNotification.snackbar = true;
+        });
 
       // TODO open created lesson
-
-      this.validFormInput = false;
-      this.dialog = false;
-      this.$refs.form.reset();
     },
   },
   data: () => ({
     dialog: false,
     validFormInput: false,
-    title: String,
-    description: String
+    lesson: {
+      title: "",
+      description: "",
+    },
   }),
+  computed: {
+    loading() {
+      if (this.dialog == false) return false;
+      return this.$store.state.loading;
+    },
+  },
 };
 </script>

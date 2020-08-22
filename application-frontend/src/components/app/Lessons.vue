@@ -5,7 +5,8 @@
       :items="lessons"
       @click:row="openLessonModal"
       class="elevation-1"
-      loading-text="Loading... Please wait"
+      :loading="loading"
+      loading-text="Loading lessons..."
       hide-default-footer
     >
       <template v-slot:item.completed="{ item }">
@@ -43,11 +44,9 @@ export default {
   },
   methods: {
     openLessonModal(item) {
-      this.$store.dispatch('fetchLesson', item.id);
-      this.selectedLesson = item.id
-      
+      this.selectedLesson = item.id;
       this.$refs.lessonModal.dialog = true;
-    }
+    },
   },
   data() {
     return {
@@ -60,6 +59,11 @@ export default {
         { text: "Dislikes", value: "dislikes", align: "center" },
       ],
     };
+  },
+  computed: {
+    loading() {
+      return this.$store.state.loading;
+    },
   },
 };
 </script>

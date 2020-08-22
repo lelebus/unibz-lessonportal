@@ -21,7 +21,7 @@ export default {
   },
   computed: {
     lessons() {
-      return this.$store.state.lessons.filter( lesson => lesson.completed );
+      return this.$store.getters.completedLessons;
     },
   },
 };

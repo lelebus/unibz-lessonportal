@@ -7,165 +7,152 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     loading: false,
-    lessons: [
-      {
-        id: 3,
-        title: "Lesson ZHu",
-        description:
-          "Lorem ipsum merdetn dsaghfasdhh sdhafdshdsfjdsanjkdsa dfjasdfhadshjlkfda sdfhsjnvlkjdwasgjandjlflsadj asdkj asdkljnasjk badsnkjladn adn lkjfasdjk fnasdljkds ljk",
-        likes: 256713,
-        dislikes: 3,
-        completed: true,
-        comments: []
-      },
-      {
-        title: "Lesson 34567",
-        likes: 213,
-        dislikes: 3,
-        completed: true,
-      },
-      {
-        title: "Lesson 123678",
-        description:
-          "Lorem ipsum merdetn dsaghfasdhh sdhafdshdsfjdsanjkdsa dfjasdfhadshjlkfda sdfhsjnvlkjdwasgjandjlflsadj asdkj asdkljnasjk badsnkjladn adn lkjfasdjk fnasdljkds ljk",
-        likes: 213,
-        dislikes: 3,
-        completed: false,
-      },
-      {
-        title: "Lesson 125673",
-        likes: 213,
-        dislikes: 3,
-        completed: false,
-      },
-      {
-        title: "Lesson 3456",
-        likes: 213,
-        dislikes: 3,
-        completed: true,
-      },
-      {
-        title: "Lesson 026",
-        likes: 213,
-        dislikes: 3,
-        completed: true,
-      },
-      //   {
-      //     title: "Lesson 353728892",
-      //     likes: 213,
-      //     dislikes: 7879,
-      //     completed: true,
-      //   },
-      //   {
-      //     title: "Lesson Tesy",
-      //     likes: 213,
-      //     dislikes: 3,
-      //     completed: true,
-      //   },
-      //   {
-      //     title: "Lesson sdakkhds",
-      //     likes: 213,
-      //     dislikes: 3,
-      //     completed: false,
-      //   },
-      //   {
-      //     title: "Lesson r72",
-      //     likes: 213,
-      //     dislikes: 3,
-      //     completed: true,
-      //   },
-      //   {
-      //     title: "Lesson 3282389",
-      //     likes: 213,
-      //     dislikes: 3,
-      //     completed: true,
-      //   },
-      //   {
-      //     title: "Lesson 2176813",
-      //     likes: 213,
-      //     dislikes: 3,
-      //     completed: true,
-      //   },
-      {
-        title: "Lesson 87239",
-        likes: 213,
-        dislikes: 3,
-        completed: false,
-      },
-    ],
-    ranking: [
-      {
-        position: 1,
-        username: "lelebus",
-        points: 3455,
-      },
-      {
-        position: 2,
-        username: "lelebus",
-        points: 3455,
-      },
-      {
-        position: 3,
-        username: "lelebus",
-        points: 3455,
-        currentUser: "selected",
-      },
-      {
-        position: 4,
-        username: "lelebus",
-        points: 3455,
-      },
-      {
-        position: 5,
-        username: "lelebus",
-        points: 3455,
-      },
-      {
-        position: 6,
-        username: "lelebus",
-        points: 3455,
-      },
-      {
-        position: 7,
-        username: "lelebus",
-        points: 3455,
-      },
-      {
-        position: 8,
-        username: "lelebus",
-        points: 3455,
-      },
-    ],
+    loadingCount: 0,
+    lessons: [],
+    ranking: []
   },
+
   mutations: {
-    startOperation(state) {
-      console.log("Start loading")
-      console.log(this.state)
+    loading(state) {
+      state.loadingCount++;
       state.loading = true;
     },
+    stopLoading(state) {
+      state.loadingCount--;
+      if (state.loadingCount == 0) {
+        state.loading = false;
+      }
+    },
+    addLesson(state, lesson) {
+      state.lessons.push(lesson)
+    },
+    setLessons(state, lessons) {
+      state.lessons = lessons
+    },
     setLesson(state, lesson) {
-      let currentLessonIndex = state.lessons.findIndex(item => item.id === lesson.id);
-      console.log(lesson.comments)
-      state.lessons[currentLessonIndex] = lesson
-      console.log(state.lessons[currentLessonIndex])
+      let currentLesson = state.lessons.find(item => item.id === lesson.id);
+      currentLesson.likes = lesson.likes
+      currentLesson.dislikes = lesson.dislikes
+      currentLesson.comments = lesson.comments
+      currentLesson.rating = lesson.rating
+      currentLesson.completed = lesson.completed
+    },
+    setRanking(state, ranking) {
+      state.ranking = ranking
     }
   },
+
   actions: {
-    fetchLesson: async ({ commit }, id) => {
-      commit('startOperation')
+    createLesson: async ({ commit }, lesson) => {
+      let success = true
+      commit('loading')
       try {
-        let lesson = await api.getMockLesson(id) //TODO: mock
-        console.log("commit")
+        console.log("create title:" + lesson.title)
+        let createdLesson = await api.postLesson(lesson);
+        commit('addLesson', createdLesson)
+      } catch (e) {
+        console.error(e)
+        success = false
+      }
+      commit('stopLoading')
+      return new Promise((resolve, reject) => {
+        if (!success) {
+          reject();
+        } else {
+          resolve();
+        }
+      })
+    },
+    fetchLessons: async ({ commit }) => {
+      commit('loading')
+      try {
+        let lessons = await api.getLessons();
+        commit('setLessons', lessons)
+      } catch (e) {
+        console.error(e)
+        // TODO
+      }
+      commit('stopLoading')
+    },
+    fetchLesson: async ({ commit }, id) => {
+      commit('loading')
+      try {
+        let lesson = await api.getMockLesson(id); // mock
         commit('setLesson', lesson)
       } catch (e) {
         console.error(e)
         // TODO
       }
+      commit('stopLoading')
     },
+    completeLesson: async ({ commit, getters }, { id }) => {
+      let success = true
+      commit('loading')
+      let lesson = getters.lesson(id)
+      try {
+        console.log("update this lesson: " + id)
+        await api.updateLesson(lesson, { completed: true });
+        lesson.completed = true;
+        console.log("waited update")
+        commit('setLesson', lesson)
+      } catch (e) {
+        console.error(e)
+        success = false
+      }
+      commit('stopLoading')
+      return new Promise((resolve, reject) => {
+        if (!success) {
+          reject();
+        } else {
+          resolve();
+        }
+      })
+    },
+    saveLesson: async ({ commit, getters }, { id, rating }) => {
+      let success = true
+      commit('loading')
+      let lesson = getters.lesson(id)
+
+      try {
+        if (lesson.rating !== rating) {
+          await api.updateLesson(lesson);
+          lesson.rating = rating
+          commit('setLesson', lesson)
+        }
+      } catch (e) {
+        console.error(e)
+        success = false
+      }
+      commit('stopLoading')
+      return new Promise((resolve, reject) => {
+        if (!success) {
+          reject();
+        } else {
+          resolve();
+        }
+      })
+    },
+    fetchRanking: async ({ commit }) => {
+      commit('loading')
+      try {
+        let ranking = await api.getRanking();
+        commit('setRanking', ranking)
+      } catch (e) {
+        console.error(e)
+        // TODO
+      }
+      commit('stopLoading')
+    }
   },
+
   getters: {
     lesson: state => id => {
-      return state.lessons.find(item => item.id === id);
+      let lesson = state.lessons.find(item => item.id === id);
+      console.log(typeof lesson)
+      return lesson;
+    },
+    completedLessons: state => {
+      return state.lessons.filter(lesson => lesson.completed);
     }
   }
 })

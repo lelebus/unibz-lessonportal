@@ -4,6 +4,7 @@
     :items="ranking"
     item-class="currentUser"
     class="elevation-1 ranking"
+    :loading="loading"
     loading-text="Loading... Please wait"
     hide-default-footer
   ></v-data-table>
@@ -29,11 +30,15 @@ export default {
       ],
     };
   },
+  compute: {
+    loading() {
+      return this.$route.state.loading;
+    }
+  }
 };
 </script>
 
 <style>
-
 .v-data-table.ranking {
   width: 100%;
   max-width: 800px;

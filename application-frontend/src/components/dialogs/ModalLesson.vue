@@ -19,11 +19,22 @@
           <v-card-text>{{item.description}}</v-card-text>
 
           <v-card-actions v-if="item.completed == false" class="center-container">
-            <v-btn @click="completeLesson" class="center-x" dark color="purple">Mark as completed</v-btn>
+            <v-btn
+              @click="completeLesson"
+              :loading="loading"
+              class="center-x"
+              dark
+              color="purple"
+            >Mark as completed</v-btn>
           </v-card-actions>
 
           <v-card-actions v-if="item.completed == true">
-            <v-badge :content="item.comments.length" :value="item.comments.length" color="purple" overlap>
+            <v-badge
+              :content="item.comments.length"
+              :value="item.comments.length"
+              color="purple"
+              overlap
+            >
               <v-btn icon @click="$refs.commentsModal.dialog = true">
                 <v-icon>mdi-comment</v-icon>
               </v-btn>
@@ -39,7 +50,7 @@
             </v-btn-toggle>
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
-            <v-btn color="blue darken-1" text @click="saveLesson">Save</v-btn>
+            <v-btn color="blue darken-1" text @click="saveLesson" :loading="loading">Save</v-btn>
           </v-card-actions>
         </v-card>
         <modal-comments ref="commentsModal" :comments="item.comments"></modal-comments>
@@ -67,36 +78,46 @@ export default {
     NotifyFailure,
   },
   props: {
-    id: Number
+    id: Number,
   },
   methods: {
     completeLesson() {
-      console.log("lesson completed");
-      // TODO: save data
-      this.item.completed = true;
+      this.$store
+        .dispatch("completeLesson", { id: this.id })
+        .then(() => {
+          this.$refs.successNotification.snackbar = true;
+        })
+        .catch(() => {
+          this.$refs.failureNotification.snackbar = true;
+        });
     },
     saveLesson() {
-      console.log("saveLesson");
-
-      let success = true;
-      // TODO: save data
-      if (success == true) {
-        this.$refs.successNotification.snackbar = true;
-      } else {
-        this.$refs.failureNotification.snackbar = true;
-      }
+      this.$store
+        .dispatch("saveLesson", {
+          id: this.id,
+          rating: this.rating,
+        })
+        .then(() => {
+          this.$refs.successNotification.snackbar = true;
+        })
+        .catch(() => {
+          this.$refs.failureNotification.snackbar = true;
+        });
     },
   },
   data: () => ({
     dialog: false,
-    item: Object,
-    rating: String
+    rating: String,
   }),
-  watch: {
-    dialog() {
-      this.item = this.$store.getters.lesson(this.id)
-    }
-  }
+  computed: {
+    loading() {
+      if (this.dialog == false) return false;
+      return this.$store.state.loading;
+    },
+    item() {
+      return this.$store.getters.lesson(this.id);
+    },
+  },
 };
 </script>
 

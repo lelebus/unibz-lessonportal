@@ -13,9 +13,13 @@ import AppNavigation from "@/components/app/AppNavigation";
 
 export default {
   name: "App",
-
   components: {
     AppNavigation,
   },
+  created() {
+    console.log("dispatch")
+      this.$store.dispatch('fetchLessons');
+      this.$store.dispatch('fetchRanking');
+  }
 };
 </script>
