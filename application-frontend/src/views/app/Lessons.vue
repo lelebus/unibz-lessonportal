@@ -5,7 +5,7 @@
         <h1 class="center-x">Lessons</h1>
       </div>
       <div class="center-container">
-        <lesson-component class="center-x"></lesson-component>
+        <lesson-component class="center-x" :lessons="lessons"></lesson-component>
       </div>
 
       <div class="text-center">
@@ -35,6 +35,11 @@ export default {
   components: {
     LessonComponent,
     ModalNewLesson,
+  },
+  computed: {
+    lessons() {
+      return this.$store.state.lessons;
+    },
   },
 };
 </script>

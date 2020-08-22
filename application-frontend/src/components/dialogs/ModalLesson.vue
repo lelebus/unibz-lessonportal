@@ -23,7 +23,7 @@
           </v-card-actions>
 
           <v-card-actions v-if="item.completed == true">
-            <v-badge :content="comments.length" :value="comments.length" color="purple" overlap>
+            <v-badge :content="item.comments.length" :value="item.comments.length" color="purple" overlap>
               <v-btn icon @click="$refs.commentsModal.dialog = true">
                 <v-icon>mdi-comment</v-icon>
               </v-btn>
@@ -42,7 +42,7 @@
             <v-btn color="blue darken-1" text @click="saveLesson">Save</v-btn>
           </v-card-actions>
         </v-card>
-        <modal-comments ref="commentsModal" :comments="comments"></modal-comments>
+        <modal-comments ref="commentsModal" :comments="item.comments"></modal-comments>
       </v-dialog>
     </v-row>
 
@@ -67,7 +67,7 @@ export default {
     NotifyFailure,
   },
   props: {
-    item: Object,
+    id: Number
   },
   methods: {
     completeLesson() {
@@ -89,105 +89,14 @@ export default {
   },
   data: () => ({
     dialog: false,
-    comments: [
-      {
-        timestamp: "Today",
-        username: "lelebus",
-        message: "Wow, crazy stuff!!",
-      },
-      {
-        timestamp: "13-12-1998",
-        username: "valejordao",
-        message:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Eu volutpat odio facilisis mauris. Diam quis enim lobortis scelerisque. Phasellus egestas tellus rutrum tellus pellentesque eu tincidunt. Morbi tincidunt augue interdum velit. Venenatis tellus in metus vulputate eu. Turpis egestas pretium aenean pharetra magna ac placerat vestibulum lectus. Donec adipiscing tristique risus nec. Vel eros donec ac odio tempor orci dapibus. Lacus laoreet non curabitur gravida arcu ac tortor dignissim convallis. Purus ut faucibus pulvinar elementum integer enim neque volutpat ac. Sit amet facilisis magna etiam tempor orci eu lobortis.",
-      },
-      {
-        timestamp: "13-12-1998",
-        username: "michaelJ",
-        message: "Amazing!",
-      },
-      {
-        timestamp: "Today",
-        username: "lelebus",
-        message: "Wow, crazy stuff!!",
-      },
-      {
-        timestamp: "13-12-1998",
-        username: "valejordao",
-        message:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Eu volutpat odio facilisis mauris. Diam quis enim lobortis scelerisque. Phasellus egestas tellus rutrum tellus pellentesque eu tincidunt. Morbi tincidunt augue interdum velit. Venenatis tellus in metus vulputate eu. Turpis egestas pretium aenean pharetra magna ac placerat vestibulum lectus. Donec adipiscing tristique risus nec. Vel eros donec ac odio tempor orci dapibus. Lacus laoreet non curabitur gravida arcu ac tortor dignissim convallis. Purus ut faucibus pulvinar elementum integer enim neque volutpat ac. Sit amet facilisis magna etiam tempor orci eu lobortis.",
-      },
-      {
-        timestamp: "13-12-1998",
-        username: "michaelJ",
-        message: "Amazing!",
-      },
-      {
-        timestamp: "Today",
-        username: "lelebus",
-        message: "Wow, crazy stuff!!",
-      },
-      {
-        timestamp: "13-12-1998",
-        username: "valejordao",
-        message:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Eu volutpat odio facilisis mauris. Diam quis enim lobortis scelerisque. Phasellus egestas tellus rutrum tellus pellentesque eu tincidunt. Morbi tincidunt augue interdum velit. Venenatis tellus in metus vulputate eu. Turpis egestas pretium aenean pharetra magna ac placerat vestibulum lectus. Donec adipiscing tristique risus nec. Vel eros donec ac odio tempor orci dapibus. Lacus laoreet non curabitur gravida arcu ac tortor dignissim convallis. Purus ut faucibus pulvinar elementum integer enim neque volutpat ac. Sit amet facilisis magna etiam tempor orci eu lobortis.",
-      },
-      {
-        timestamp: "13-12-1998",
-        username: "michaelJ",
-        message: "Amazing!",
-      },
-      {
-        timestamp: "Today",
-        username: "lelebus",
-        message: "Wow, crazy stuff!!",
-      },
-      {
-        timestamp: "13-12-1998",
-        username: "valejordao",
-        message:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Eu volutpat odio facilisis mauris. Diam quis enim lobortis scelerisque. Phasellus egestas tellus rutrum tellus pellentesque eu tincidunt. Morbi tincidunt augue interdum velit. Venenatis tellus in metus vulputate eu. Turpis egestas pretium aenean pharetra magna ac placerat vestibulum lectus. Donec adipiscing tristique risus nec. Vel eros donec ac odio tempor orci dapibus. Lacus laoreet non curabitur gravida arcu ac tortor dignissim convallis. Purus ut faucibus pulvinar elementum integer enim neque volutpat ac. Sit amet facilisis magna etiam tempor orci eu lobortis.",
-      },
-      {
-        timestamp: "13-12-1998",
-        username: "michaelJ",
-        message: "Amazing!",
-      },
-      {
-        timestamp: "Today",
-        username: "lelebus",
-        message: "Wow, crazy stuff!!",
-      },
-      {
-        timestamp: "13-12-1998",
-        username: "valejordao",
-        message:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Eu volutpat odio facilisis mauris. Diam quis enim lobortis scelerisque. Phasellus egestas tellus rutrum tellus pellentesque eu tincidunt. Morbi tincidunt augue interdum velit. Venenatis tellus in metus vulputate eu. Turpis egestas pretium aenean pharetra magna ac placerat vestibulum lectus. Donec adipiscing tristique risus nec. Vel eros donec ac odio tempor orci dapibus. Lacus laoreet non curabitur gravida arcu ac tortor dignissim convallis. Purus ut faucibus pulvinar elementum integer enim neque volutpat ac. Sit amet facilisis magna etiam tempor orci eu lobortis.",
-      },
-      {
-        timestamp: "13-12-1998",
-        username: "michaelJ",
-        message: "Amazing!",
-      },
-      {
-        timestamp: "Today",
-        username: "lelebus",
-        message: "Wow, crazy stuff!!",
-      },
-      {
-        timestamp: "13-12-1998",
-        username: "valejordao",
-        message:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Eu volutpat odio facilisis mauris. Diam quis enim lobortis scelerisque. Phasellus egestas tellus rutrum tellus pellentesque eu tincidunt. Morbi tincidunt augue interdum velit. Venenatis tellus in metus vulputate eu. Turpis egestas pretium aenean pharetra magna ac placerat vestibulum lectus. Donec adipiscing tristique risus nec. Vel eros donec ac odio tempor orci dapibus. Lacus laoreet non curabitur gravida arcu ac tortor dignissim convallis. Purus ut faucibus pulvinar elementum integer enim neque volutpat ac. Sit amet facilisis magna etiam tempor orci eu lobortis.",
-      },
-      {
-        timestamp: "13-12-1998",
-        username: "michaelJ",
-        message: "Amazing!",
-      },
-    ],
+    item: Object,
+    rating: String
   }),
+  watch: {
+    dialog() {
+      this.item = this.$store.getters.lesson(this.id)
+    }
+  }
 };
 </script>
 

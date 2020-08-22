@@ -3,7 +3,6 @@
     <v-data-table
       :headers="headers"
       :items="lessons"
-      :custom-filter="filterCompleted"
       @click:row="openLessonModal"
       class="elevation-1"
       loading-text="Loading... Please wait"
@@ -27,7 +26,7 @@
       </template>
     </v-data-table>
 
-    <modal-lesson ref="lessonModal" :item="selectedLesson"></modal-lesson>
+    <modal-lesson ref="lessonModal" :id="selectedLesson"></modal-lesson>
   </div>
 </template>
 
@@ -40,116 +39,25 @@ export default {
     ModalLesson,
   },
   props: {
-    filterMyLessons: {
-      default: false,
-      type: Boolean,
-    },
+    lessons: Array,
   },
   methods: {
     openLessonModal(item) {
+      this.$store.dispatch('fetchLesson', item.id);
+      this.selectedLesson = item.id
+      
       this.$refs.lessonModal.dialog = true;
-      this.selectedLesson = item;
-    },
-    filterCompleted(value) {
-      console.log(value)
-      return this.filterMyLessons
-    },
+    }
   },
   data() {
     return {
       dialog: false,
-      search: '',
       selectedLesson: Object,
       headers: [
         { text: "Title", value: "title", align: "start" },
-        { text: "Completed", value: "completed", align: "center", sortable: false },
+        { text: "Completed", value: "completed", align: "center" },
         { text: "Likes", value: "likes", align: "center" },
         { text: "Dislikes", value: "dislikes", align: "center" },
-      ],
-      lessons: [
-        {
-          id: 3,
-          title: "Lesson ZHu",
-          description:
-            "Lorem ipsum merdetn dsaghfasdhh sdhafdshdsfjdsanjkdsa dfjasdfhadshjlkfda sdfhsjnvlkjdwasgjandjlflsadj asdkj asdkljnasjk badsnkjladn adn lkjfasdjk fnasdljkds ljk",
-          likes: 256713,
-          dislikes: 3,
-          completed: true,
-        },
-        {
-          title: "Lesson 34567",
-          likes: 213,
-          dislikes: 3,
-          completed: true,
-        },
-        {
-          title: "Lesson 123678",
-          description:
-            "Lorem ipsum merdetn dsaghfasdhh sdhafdshdsfjdsanjkdsa dfjasdfhadshjlkfda sdfhsjnvlkjdwasgjandjlflsadj asdkj asdkljnasjk badsnkjladn adn lkjfasdjk fnasdljkds ljk",
-          likes: 213,
-          dislikes: 3,
-          completed: false,
-        },
-        {
-          title: "Lesson 125673",
-          likes: 213,
-          dislikes: 3,
-          completed: false,
-        },
-        {
-          title: "Lesson 3456",
-          likes: 213,
-          dislikes: 3,
-          completed: true,
-        },
-        {
-          title: "Lesson 026",
-          likes: 213,
-          dislikes: 3,
-          completed: true,
-        },
-        {
-          title: "Lesson 353728892",
-          likes: 213,
-          dislikes: 7879,
-          completed: true,
-        },
-        {
-          title: "Lesson Tesy",
-          likes: 213,
-          dislikes: 3,
-          completed: true,
-        },
-        {
-          title: "Lesson sdakkhds",
-          likes: 213,
-          dislikes: 3,
-          completed: false,
-        },
-        {
-          title: "Lesson r72",
-          likes: 213,
-          dislikes: 3,
-          completed: true,
-        },
-        {
-          title: "Lesson 3282389",
-          likes: 213,
-          dislikes: 3,
-          completed: true,
-        },
-        {
-          title: "Lesson 2176813",
-          likes: 213,
-          dislikes: 3,
-          completed: true,
-        },
-        {
-          title: "Lesson 87239",
-          likes: 213,
-          dislikes: 3,
-          completed: true,
-        },
       ],
     };
   },

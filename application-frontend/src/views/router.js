@@ -1,36 +1,37 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import config from '@/config';
 
 Vue.use(Router);
 
 export default new Router({
     mode: 'history',
-    base: process.env.BASE_URL,
+    base: config.BASE_URL,
     routes: [
         {
             path: '/lessons',
             name: 'lessons',
-            component: () => import('./views/app/Lessons.vue')
+            component: () => import('./app/Lessons.vue')
         },
         {
             path: '/mylessons',
             name: 'my-lessons',
-            component: () => import('./views/app/MyLessons.vue')
+            component: () => import('./app/MyLessons.vue')
         },
         {
             path: '/ranking',
             name: 'ranking',
-            component: () => import('./views/app/Ranking.vue')
+            component: () => import('./app/Ranking.vue')
         },
         {
             path: '/login',
             name: 'login',
-            component: () => import('./views/Login.vue')
+            component: () => import('./Login.vue')
         },
         {
             path: '/register',
             name: 'registration',
-            component: () => import('./views/Registration.vue')
+            component: () => import('./Registration.vue')
         }
     ]
 });

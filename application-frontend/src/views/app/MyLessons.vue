@@ -5,7 +5,7 @@
         <h1 class="center-x">My Lessons</h1>
       </div>
       <div class="center-container">
-        <lesson-component class="center-x" filterMyLessons="true"></lesson-component>
+        <lesson-component class="center-x" :lessons="lessons"></lesson-component>
       </div>
     </v-layout>
   </v-container>
@@ -18,6 +18,11 @@ export default {
   name: "MyLessons",
   components: {
     LessonComponent,
+  },
+  computed: {
+    lessons() {
+      return this.$store.state.lessons.filter( lesson => lesson.completed );
+    },
   },
 };
 </script>

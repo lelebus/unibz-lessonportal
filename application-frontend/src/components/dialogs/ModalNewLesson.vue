@@ -86,6 +86,8 @@ export default {
   data: () => ({
     dialog: false,
     validFormInput: false,
+    title: String,
+    description: String
   }),
 };
 </script>

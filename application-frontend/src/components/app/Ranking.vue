@@ -1,7 +1,7 @@
 <template>
   <v-data-table
     :headers="headers"
-    :items="users"
+    :items="ranking"
     item-class="currentUser"
     class="elevation-1 ranking"
     loading-text="Loading... Please wait"
@@ -12,6 +12,9 @@
 <script>
 export default {
   name: "RankingComponent",
+  props: {
+    ranking: Array
+  },
   data() {
     return {
       headers: [
@@ -24,52 +27,8 @@ export default {
         { text: "User", value: "username", align: "center", sortable: false },
         { text: "Points", value: "points", align: "center", sortable: false },
       ],
-      users: [
-        {
-          position: 1,
-          username: "lelebus",
-          points: 3455,
-        },
-        {
-          position: 2,
-          username: "lelebus",
-          points: 3455,
-        },
-        {
-          position: 3,
-          username: "lelebus",
-          points: 3455,
-          currentUser: "selected",
-        },
-        {
-          position: 4,
-          username: "lelebus",
-          points: 3455,
-        },
-        {
-          position: 5,
-          username: "lelebus",
-          points: 3455,
-        },
-        {
-          position: 6,
-          username: "lelebus",
-          points: 3455,
-        },
-        {
-          position: 7,
-          username: "lelebus",
-          points: 3455,
-        },
-        {
-          position: 8,
-          username: "lelebus",
-          points: 3455,
-        },
-      ],
     };
   },
-  methods: {},
 };
 </script>
 

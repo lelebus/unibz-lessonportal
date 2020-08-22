@@ -5,7 +5,7 @@
         <h1 class="center-x">Ranking</h1>
       </div>
       <div class="center-container">
-        <ranking-component class="center-x"></ranking-component>
+        <ranking-component class="center-x" :ranking="rankingList"></ranking-component>
       </div>
     </v-layout>
   </v-container>
@@ -18,6 +18,11 @@ export default {
   name: "Ranking",
   components: {
     RankingComponent,
+  },
+  computed: {
+    rankingList() {
+      return this.$store.state.ranking;
+    },
   },
 };
 </script>

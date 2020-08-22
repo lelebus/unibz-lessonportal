@@ -17,9 +17,5 @@ export default {
   components: {
     AppNavigation,
   },
-
-  data: () => ({
-    appTitle: "SA Project"
-  }),
 };
 </script>
