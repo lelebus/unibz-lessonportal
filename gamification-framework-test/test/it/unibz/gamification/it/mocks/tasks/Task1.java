@@ -1,4 +1,4 @@
-package it.unibz.gamification.mocks.tasks;
+package it.unibz.gamification.it.mocks.tasks;
 
 import it.unibz.gamification.Task;
 import it.unibz.gamification.annotations.AddPoints;

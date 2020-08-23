@@ -1,6 +1,9 @@
-package it.unibz.gamification;
+package it.unibz.gamification.test;
 
 import org.junit.jupiter.api.BeforeEach;
+
+import it.unibz.gamification.User;
+import it.unibz.gamification.UserRegistry;
 
 public class RunnerTest {
 

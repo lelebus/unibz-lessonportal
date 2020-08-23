@@ -1,7 +1,7 @@
-package it.unibz.gamification.mocks.tasks;
+package it.unibz.gamification.it.mocks.tasks;
 
-import it.unibz.gamification.Task;
 import it.unibz.gamification.annotations.RemovePoints;
+import it.unibz.gamification.Task;
 
 public class Task2 implements Task {
 

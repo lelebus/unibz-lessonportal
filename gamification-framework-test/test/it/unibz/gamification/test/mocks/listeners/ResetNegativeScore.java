@@ -1,4 +1,4 @@
-package it.unibz.gamification.mocks.listeners;
+package it.unibz.gamification.test.mocks.listeners;
 
 import it.unibz.gamification.GamificationListener;
 import it.unibz.gamification.User;
