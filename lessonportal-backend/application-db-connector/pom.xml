@@ -7,19 +7,14 @@
 		<artifactId>lessonportal-backend</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>lessonportal.rest-api</artifactId>
-	<name>application-rest-api</name>
+	<artifactId>lessonportal.sql-connector</artifactId>
+	<name>application-sql-connector</name>
 
 	<dependencies>
 		<dependency>
-			<groupId>io.vertx</groupId>
-			<artifactId>vertx-core</artifactId>
-			<version>3.9.2</version>
-		</dependency>
-		<dependency>
-			<groupId>io.vertx</groupId>
-			<artifactId>vertx-web</artifactId>
-			<version>3.9.2</version>
+			<groupId>com.mchange</groupId>
+			<artifactId>c3p0</artifactId>
+			<version>0.9.5.5</version>
 		</dependency>
 	</dependencies>
 </project>
