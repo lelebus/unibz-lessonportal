@@ -12,11 +12,7 @@
 		<module>application-rest-api</module>
 		<module>application-sql-connector</module>
 		<module>application-core</module>
+		<module>application-runner</module>
 	</modules>
-
-	<properties>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
-	</properties>
 
 </project>

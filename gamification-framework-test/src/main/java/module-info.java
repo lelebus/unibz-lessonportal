@@ -1,0 +1,3 @@
+module gamificationFrameworkTest {
+	requires gamificationFramework;
+}

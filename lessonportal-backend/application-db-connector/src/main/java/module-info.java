@@ -1,5 +1,5 @@
 module sqlConnector {
-	exports it.unibz.lessonportal.dbConnector;
+	exports it.unibz.dbConnector;
 
 	requires c3p0;
 	requires java.desktop;
