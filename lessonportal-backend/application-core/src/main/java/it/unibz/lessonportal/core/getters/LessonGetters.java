@@ -16,7 +16,7 @@ public class LessonGetters {
 		String query = "SELECT id, title, description, comments FROM lessons";
 
 		// TODO: get ranking for currentuser
-		
+
 		ResultSet rs = pool.query(query);
 		while (rs.next()) {
 			List<Comment> comments = new LinkedList<Comment>();
@@ -48,6 +48,7 @@ public class LessonGetters {
 				// no comments
 			}
 
+			rs.getStatement().getConnection().close();
 			return new Lesson(rs.getInt("id"), rs.getString("title"), rs.getString("description"), comments);
 		}
 		rs.getStatement().getConnection().close();

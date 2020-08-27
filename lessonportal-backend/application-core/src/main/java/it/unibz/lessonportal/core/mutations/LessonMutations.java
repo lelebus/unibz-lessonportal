@@ -1,5 +1,6 @@
 package it.unibz.lessonportal.core.mutations;
 
+import java.sql.ResultSet;
 import java.util.List;
 
 import it.unibz.dbConnector.ConnectionPool;
@@ -8,10 +9,17 @@ import it.unibz.lessonportal.core.Lesson;
 
 public class LessonMutations {
 	protected static int insert(ConnectionPool pool, String username, Lesson lesson) throws Exception {
-		// TODO: test RETURNING id
-		String query = "INSERT INTO lessons (title, description, addedBy) VALUES (?, ?, ?)";
+		String query = "INSERT INTO lessons (title, description, addedBy) VALUES (?, ?, ?) RETURNING id";
 		Object[] params = new Object[] {lesson.getTitle(), lesson.getDescription(), username};
-		return pool.update(query, params);
+		
+		ResultSet rs = pool.query(query, params);
+		if (rs.next()) {
+			rs.getStatement().getConnection().close();
+			return rs.getInt("id");
+		}
+		rs.getStatement().getConnection().close();
+
+		return -1;
 	}
 	
 	protected static int setComplete(ConnectionPool pool, String username, int lessonId) throws Exception {

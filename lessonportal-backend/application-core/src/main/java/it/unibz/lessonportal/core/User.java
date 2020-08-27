@@ -1,5 +1,6 @@
 package it.unibz.lessonportal.core;
 
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
 import it.unibz.lessonportal.core.getters.Ranking;
@@ -11,7 +12,7 @@ public class User {
 	private int resetCount, points;
 	private String username, email, password;
 	
-	User(String username, String email, String password, int resetCount, int points) {
+	public User(String username, String email, String password, int resetCount, int points) {
 		this.username = username;
 		this.email = email;
 		this.password = password;
@@ -40,7 +41,7 @@ public class User {
 	}
 
 	public static class RankingQuery extends Ranking {
-		public static LinkedList<User> getRanking() {
+		public static LinkedHashMap<String, Integer> getRanking() {
 			try {
 				return getDesc(PortalCore.pool);
 			} catch (Exception e) {
