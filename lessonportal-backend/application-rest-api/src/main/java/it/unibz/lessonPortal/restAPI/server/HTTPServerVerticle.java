@@ -29,10 +29,16 @@ public class HTTPServerVerticle extends AbstractVerticle {
 		router.route().handler(context -> {
 			HttpServerRequest req = context.request();
 			
+			// TODO: get username from jwt
+			String username = "lelebus";
+			context.put("user", username);
+			
+			System.out.println("Request");
+			
 			context.next();
 		});
 
-		router.mountSubRouter("/user", new UserEndpoint().router(vertx));
+		router.mountSubRouter("/users", new UserEndpoint().router(vertx));
 		router.mountSubRouter("/lessons", new LessonEndpoint().router(vertx));
 		router.mountSubRouter("/ranking", new RankingEndpoint().router(vertx));
 

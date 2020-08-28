@@ -6,11 +6,15 @@ import it.unibz.lessonportal.core.PortalCore;
 public class Server {
 	
 	private int port;
-	private PortalCore core;
+	private static PortalCore core;
 	
 	public Server(int port, PortalCore core) {
 		this.port = port;
 		this.core = core;
+	}
+	
+	public static PortalCore getPortalCore() {
+		return core;
 	}
 	
 	public void up() {

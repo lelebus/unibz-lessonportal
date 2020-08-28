@@ -7,11 +7,11 @@ import java.sql.SQLException;
 import it.unibz.dbConnector.exceptions.UndefinedTypeException;
 
 public class SQLStatement {
-	public static PreparedStatement prepare(Connection connection, String query) throws SQLException {
+	protected static PreparedStatement prepare(Connection connection, String query) throws SQLException {
 		return connection.prepareStatement(query);
 	}
 
-	public static PreparedStatement prepare(Connection connection, String query, Object[] params) throws SQLException, UndefinedTypeException {
+	protected static PreparedStatement prepare(Connection connection, String query, Object[] params) throws SQLException, UndefinedTypeException {
 		PreparedStatement stmt = connection.prepareStatement(query);
 		for (int i = 0; i < params.length; i++) {
 			switch (getType(params[i])) {
@@ -35,7 +35,7 @@ public class SQLStatement {
 		return stmt;
 	}
 
-	public static String getType(Object obj) {
+	private static String getType(Object obj) {
 		if (obj instanceof Integer) {
 			return "int";
 		} else if (obj instanceof Double) {

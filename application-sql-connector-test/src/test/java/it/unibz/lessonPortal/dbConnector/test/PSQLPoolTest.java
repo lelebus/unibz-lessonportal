@@ -22,8 +22,8 @@ public class PSQLPoolTest {
 	static String user = "username";
 	static String pwd = "password";
 
-//	@Nested
-	class testPooling {
+	@Nested
+	static class testPooling {
 		ConnectionPool pool;
 
 		@BeforeAll

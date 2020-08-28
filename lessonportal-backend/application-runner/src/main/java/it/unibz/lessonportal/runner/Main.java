@@ -14,7 +14,7 @@ public class Main {
 			return;
 		}
 		
-//		Server server = new Server(8080, core);
-//		server.up();
+		Server server = new Server(8080, core);
+		server.up();
 	}
 }

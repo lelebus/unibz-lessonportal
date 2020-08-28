@@ -72,16 +72,14 @@ public class Lesson {
 	}
 
 	public class Mutation extends LessonMutations {
-		public boolean setNewLesson(String username) {
+		public int setNewLesson(String username) {
 			try {
-				insert(PortalCore.pool, username, Lesson.this);
+				return insert(PortalCore.pool, username, Lesson.this);
 			} catch (Exception e) {
 				System.out.println("ERROR:: creating new lesson");
 				e.printStackTrace();
-				return false;
+				return -1;
 			}
-			
-			return true;
 		}
 
 		public boolean setLessonComplete(String username) {

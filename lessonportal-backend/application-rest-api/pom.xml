@@ -9,7 +9,7 @@
 	</parent>
 	<artifactId>lessonportal.rest-api</artifactId>
 	<name>application-rest-api</name>
-	
+
 	<properties>
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>11</maven.compiler.target>
@@ -26,8 +26,13 @@
 			<artifactId>vertx-web</artifactId>
 			<version>3.9.2</version>
 		</dependency>
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20200518</version>
+		</dependency>
 	</dependencies>
-	
+
 	<build>
 		<plugins>
 			<plugin>
