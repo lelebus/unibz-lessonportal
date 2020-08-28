@@ -14,8 +14,9 @@ public class LessonMutations {
 		
 		ResultSet rs = pool.query(query, params);
 		if (rs.next()) {
+			int id = rs.getInt("id");
 			rs.getStatement().getConnection().close();
-			return rs.getInt("id");
+			return id;
 		}
 		rs.getStatement().getConnection().close();
 

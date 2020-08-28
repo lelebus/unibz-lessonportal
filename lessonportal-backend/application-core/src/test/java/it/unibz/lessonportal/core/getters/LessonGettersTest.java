@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import it.unibz.lessonportal.core.Comment;
+import it.unibz.lessonportal.core.LearnedLesson;
 import it.unibz.lessonportal.core.Lesson;
 import it.unibz.lessonportal.core.PortalCore;
 import it.unibz.lessonportal.core.mocks.CoreMock;
@@ -27,12 +28,12 @@ class LessonGettersTest extends LessonGetters {
 		comments = new LinkedList<Comment>();
 		comments.add(new Comment(PortalCore.dateFormat.parse("11:11:11 11-11-2011"), CoreMock.username, "message"));
 		comments.add(new Comment(PortalCore.dateFormat.parse("12:12:12 12-12-2012"), CoreMock.username, "message"));
-		lesson = new Lesson(CoreMock.lessonId, "title", "description", comments);
+		lesson = new LearnedLesson(CoreMock.lessonId, "title", "description", comments, CoreMock.username, "like");
 	}
 
 	@Test
 	void testGetById() throws Exception {
-		Lesson lesson = LessonGetters.get(core.pool, CoreMock.lessonId);
+		Lesson lesson = LessonGetters.get(core.pool, CoreMock.lessonId, CoreMock.username);
 		assertEquals(CoreMock.lessonId, lesson.getId());
 	}
 
@@ -44,7 +45,7 @@ class LessonGettersTest extends LessonGetters {
 		Object[] params = new Object[] {lessonId2, "newlesson", CoreMock.username};
 		core.pool.update(query, params);
 		
-		ArrayList<Lesson> lessons = LessonGetters.getAll(core.pool);
+		ArrayList<LearnedLesson> lessons = LessonGetters.getAll(core.pool, CoreMock.username);
 		assertTrue(lessons.size() >= 2);
 		
 		Boolean foundLesson1 = false, foundLesson2 = false;

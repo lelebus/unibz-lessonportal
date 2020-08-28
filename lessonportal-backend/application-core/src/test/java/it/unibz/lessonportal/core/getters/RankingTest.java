@@ -40,7 +40,7 @@ class RankingTest {
 		int max = 0;
 		Collection<Integer> values = ranking.values();
 		for (int points : values) {
-			assertTrue(points > max, "Wrong ranking order");
+			assertTrue(points >= max, "Wrong ranking order");
 			max = points;
 		}
 	}

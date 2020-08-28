@@ -7,19 +7,20 @@ import java.util.LinkedList;
 import java.util.List;
 import it.unibz.dbConnector.ConnectionPool;
 import it.unibz.lessonportal.core.Comment;
+import it.unibz.lessonportal.core.LearnedLesson;
 import it.unibz.lessonportal.core.Lesson;
+import it.unibz.lessonportal.core.Lesson.Query;
 
 public class LessonGetters {
-	protected static ArrayList<Lesson> getAll(ConnectionPool pool) throws Exception {
-		ArrayList<Lesson> lessons = new ArrayList<Lesson>();
+	protected static ArrayList<LearnedLesson> getAll(ConnectionPool pool, String username) throws Exception {
+		ArrayList<LearnedLesson> lessons = new ArrayList<LearnedLesson>();
 
-		String query = "SELECT id, title, description, comments FROM lessons";
+		String query = "SELECT id, title, description, comments, username, rating FROM lessons l FULL JOIN lessonslearned ll ON l.id = ll.lesson WHERE username = ? OR username IS NULL";
+		Object[] params = new Object[] {username};
 
-		// TODO: get ranking for currentuser
-
-		ResultSet rs = pool.query(query);
+		ResultSet rs = pool.query(query, params);
 		while (rs.next()) {
-			List<Comment> comments = new LinkedList<Comment>();
+			LinkedList<Comment> comments = new LinkedList<Comment>();
 
 			try {
 				comments = Comment.parseJSONArrayString(rs.getString("comments"));
@@ -27,20 +28,20 @@ public class LessonGetters {
 				// no comments
 			}
 
-			lessons.add(new Lesson(rs.getInt("id"), rs.getString("title"), rs.getString("description"), comments));
+			lessons.add(new LearnedLesson(rs.getInt("id"), rs.getString("title"), rs.getString("description"), comments, username, rs.getString("rating")));
 		}
 		rs.getStatement().getConnection().close();
 
 		return lessons;
 	}
 
-	protected static Lesson get(ConnectionPool pool, int id) throws Exception {
-		String query = "SELECT id, title, description, comments FROM lessons WHERE id = ?";
-		Object[] args = new Object[] { id };
+	protected static LearnedLesson get(ConnectionPool pool, int id, String username) throws Exception {
+		String query = "SELECT id, title, description, comments, username, rating FROM lessons l FULL JOIN lessonslearned ll ON l.id = ll.lesson WHERE ll.username = ? OR ll.username IS NULL AND l.id = ?";
+		Object[] args = new Object[] { username, id };
 
 		ResultSet rs = pool.query(query, args);
 		if (rs.next()) {
-			List<Comment> comments = new LinkedList<Comment>();
+			LinkedList<Comment> comments = new LinkedList<Comment>();
 
 			try {
 				comments = Comment.parseJSONArrayString(rs.getString("comments"));
@@ -48,8 +49,7 @@ public class LessonGetters {
 				// no comments
 			}
 
-			rs.getStatement().getConnection().close();
-			return new Lesson(rs.getInt("id"), rs.getString("title"), rs.getString("description"), comments);
+			return new LearnedLesson(rs.getInt("id"), rs.getString("title"), rs.getString("description"), comments, username, rs.getString("rating"));
 		}
 		rs.getStatement().getConnection().close();
 

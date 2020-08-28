@@ -1,6 +1,6 @@
         
 CREATE TABLE IF NOT EXISTS users (
-    username text UNIQUE NOT NULL PRIMARY KEY,
+    username varchar UNIQUE NOT NULL PRIMARY KEY,
     email text UNIQUE NOT NULL,
     password text NOT NULL,
     resetcount int NOT NULL default 0,
@@ -14,6 +14,10 @@ CREATE TABLE IF NOT EXISTS lessons (
     addedBy varchar NOT NULL REFERENCES users(username),
     comments json
 );
+-- COMMENTS
+-- timestamp
+-- username
+-- message
 
 DO $$ BEGIN
     CREATE TYPE rating AS ENUM ('like', 'dislike');

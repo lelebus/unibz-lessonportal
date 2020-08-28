@@ -1,6 +1,7 @@
 package it.unibz.lessonportal.core;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import it.unibz.lessonportal.core.getters.LessonGetters;
@@ -10,15 +11,19 @@ public class Lesson {
 
 	private int id;
 	private String title, description;
-	private List<Comment> comments;
+	private LinkedList<Comment> comments;
 	String username, rating;
 
+	public Lesson(int id) {
+		this.id = id;
+	}
+	
 	public Lesson(String title, String description) {
 		this.title = title;
 		this.description = description;
 	}
 
-	public Lesson(int id, String title, String description, List<Comment> comments) {
+	public Lesson(int id, String title, String description, LinkedList<Comment> comments) {
 		this.id = id;
 		this.title = title;
 		this.description = description;
@@ -41,18 +46,14 @@ public class Lesson {
 		return description;
 	}
 
-	public List<Comment> getComments() {
+	public LinkedList<Comment> getComments() {
 		return comments;
 	}
-
-	public void setComments(List<Comment> comments) {
-		this.comments = comments;
-	}
-
+	
 	public static class Query extends LessonGetters {
-		public static Lesson getLesson(int id) {
+		public static LearnedLesson getLesson(int id, String username) {
 			try {
-				return get(PortalCore.pool, id);
+				return get(PortalCore.pool, id, username);
 			} catch (Exception e) {
 				System.out.println("ERROR:: getting lesson by id");
 				e.printStackTrace();
@@ -60,9 +61,9 @@ public class Lesson {
 			return null;
 		}
 
-		public static List<Lesson> getLessons() {
+		public static List<LearnedLesson> getLessons(String username) {
 			try {
-				return getAll(PortalCore.pool);
+				return getAll(PortalCore.pool, username);
 			} catch (Exception e) {
 				System.out.println("ERROR:: getting all lessons");
 				e.printStackTrace();

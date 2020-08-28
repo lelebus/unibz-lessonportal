@@ -1,0 +1,43 @@
+/lessons/:id - GET
+-> Lesson (ERROR if userId has not completed lesson)
+
+/lessons - GET
+-> [Lesson]
+
+/ranking - GET
+-> [{position, username, points}]
+
+/me - GET
+-> User
+
+/lessons - POST
+request parameters: Lesson
+->Lesson (quella appena creata)
+
+/lessons/:id - PUT
+request parameters: rating
+->Boolean (ERROR if userId has not completed lesson)
+
+/lessons/:id/comments - POST
+request parameters: lessonId, message
+->Lesson
+
+------ TYPES:
+Lesson:
+{
+id:
+title:
+description:
+likes:
+dislikes:
+completed:
+comments:
+}
+
+User:
+{
+username:
+email:
+points:
+resetcount:
+}

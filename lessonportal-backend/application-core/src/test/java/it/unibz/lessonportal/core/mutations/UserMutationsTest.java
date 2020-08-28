@@ -2,6 +2,7 @@ package it.unibz.lessonportal.core.mutations;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -32,6 +33,13 @@ class UserMutationsTest extends UserMutations {
 			assertDoesNotThrow(() -> {
 				User newUser = new User("newuser", "new@user.test", "password", 0, 0);
 				assertEquals(1, UserMutations.insert(core.pool, newUser));
+				
+				String query = "SELECT email FROM users WHERE username = ?";
+				ResultSet rs = core.pool.query(query, new Object[] {"newuser"});
+				rs.next();
+				assertEquals("new@user.test", rs.getString("email"));
+
+				rs.getStatement().getConnection().close();
 			});
 		}
 
@@ -60,6 +68,13 @@ class UserMutationsTest extends UserMutations {
 		assertDoesNotThrow(() -> {
 			User newUser = new User(CoreMock.username, "test@test.test", "password", 0, 10);
 			assertEquals(1, UserMutations.setPoints(core.pool, newUser));
+			
+			String query = "SELECT points FROM users WHERE username = ?";
+			ResultSet rs = core.pool.query(query, new Object[] {CoreMock.username});
+			rs.next();
+			assertEquals(10, rs.getInt("points"));
+
+			rs.getStatement().getConnection().close();
 		});
 	}
 	
@@ -67,7 +82,14 @@ class UserMutationsTest extends UserMutations {
 	void testSetPassword() {
 		assertDoesNotThrow(() -> {
 			User newUser = new User(CoreMock.username, "test@test.test", "password", 1, 0);
-			assertEquals(1, UserMutations.setPoints(core.pool, newUser));
+			assertEquals(1, UserMutations.setPassword(core.pool, newUser));
+			
+			String query = "SELECT resetcount FROM users WHERE username = ?";
+			ResultSet rs = core.pool.query(query, new Object[] {CoreMock.username});
+			rs.next();
+			assertEquals(1, rs.getInt("resetcount"));
+
+			rs.getStatement().getConnection().close();
 		});
 	}
 
