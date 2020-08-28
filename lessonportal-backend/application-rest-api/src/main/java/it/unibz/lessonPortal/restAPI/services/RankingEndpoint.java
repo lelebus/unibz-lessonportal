@@ -22,6 +22,11 @@ public class RankingEndpoint implements AbstractServiceEndpoint {
 			System.out.println("GET /ranking");
 			HttpServerResponse res = context.response();
 			
+			if(context.get("user") == null) {
+				res.setStatusCode(401);
+				res.end();
+			}
+			
 			LinkedHashMap<String, Integer> ranking = User.RankingQuery.getRanking();
 			if (ranking != null) {
 				res.setStatusCode(200);

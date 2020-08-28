@@ -1,16 +1,23 @@
 package it.unibz.lessonportal.core;
 
 import java.util.LinkedHashMap;
-import java.util.LinkedList;
+import org.mindrot.jbcrypt.BCrypt;
 
 import it.unibz.lessonportal.core.getters.Ranking;
 import it.unibz.lessonportal.core.getters.UserGetters;
 import it.unibz.lessonportal.core.mutations.UserMutations;
 
 public class User {
-
+	private static int logRounds = 12;
 	private int resetCount, points;
 	private String username, email, password;
+	
+	public User(String username, String email) {
+		this.username = username;
+		this.email = email;
+		this.resetCount = 0;
+		this.points = 0;
+	}
 	
 	public User(String username, String email, String password, int resetCount, int points) {
 		this.username = username;
@@ -39,6 +46,16 @@ public class User {
 	public String getPassword() {
 		return password;
 	}
+	
+	public String hashPassword(String password) {
+		return BCrypt.hashpw(password, BCrypt.gensalt(logRounds));
+		
+	}
+	
+	public boolean checkPassword(String password) {
+		return BCrypt.checkpw(password, this.password);
+	}
+	
 
 	public static class RankingQuery extends Ranking {
 		public static LinkedHashMap<String, Integer> getRanking() {
@@ -64,10 +81,13 @@ public class User {
 	}
 	
 	public class Mutation extends UserMutations {
-		public boolean setNewUser() {
+		public boolean setNewUser(String password) {
+			User.this.password = hashPassword(password);
+			
 			try {
 				insert(PortalCore.pool, User.this);
 			} catch (Exception e) {
+				System.out.println(e.toString());
 				System.out.println("ERROR:: creating new user");
 				e.printStackTrace();
 				return false;
