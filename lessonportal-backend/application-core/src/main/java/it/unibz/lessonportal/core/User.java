@@ -47,9 +47,12 @@ public class User {
 		return password;
 	}
 	
-	public String hashPassword(String password) {
+	public void setPassword(String password) {
+		this.password = hashPassword(password);
+	}
+	
+	public static String hashPassword(String password) {
 		return BCrypt.hashpw(password, BCrypt.gensalt(logRounds));
-		
 	}
 	
 	public boolean checkPassword(String password) {
@@ -69,10 +72,13 @@ public class User {
 	}
 	
 	public static class Query extends UserGetters {
-		public static User getUser(String username) {
+		public static User getUser(String username) throws NullPointerException {
 			try {
 				return get(PortalCore.pool, username);
 			} catch (Exception e) {
+				if (e instanceof NullPointerException) {
+					throw new NullPointerException();
+				}
 				System.out.println("ERROR:: getting user by username");
 				e.printStackTrace();
 			}
@@ -82,7 +88,7 @@ public class User {
 	
 	public class Mutation extends UserMutations {
 		public boolean setNewUser(String password) {
-			User.this.password = hashPassword(password);
+			User.this.setPassword(password);
 			
 			try {
 				insert(PortalCore.pool, User.this);
