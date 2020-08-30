@@ -21,6 +21,7 @@ export default {
   },
   computed: {
     lessons() {
+      console.log('loading mine');
       return this.$store.getters.completedLessons;
     },
   },

@@ -1,7 +1,7 @@
         
 CREATE TABLE IF NOT EXISTS users (
     username varchar UNIQUE NOT NULL PRIMARY KEY,
-    email text UNIQUE NOT NULL,
+    name text UNIQUE NOT NULL,
     password text NOT NULL,
     resetcount int NOT NULL default 0,
     points int NOT NULL default 0

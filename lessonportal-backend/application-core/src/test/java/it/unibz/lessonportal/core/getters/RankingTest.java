@@ -23,12 +23,12 @@ class RankingTest {
 		Object[] params = new Object[] { CoreMock.username };
 		core.pool.update(query, params);
 
-		query = "INSERT INTO users (username, email, password, points) VALUES (?, ?, ?, ?)";
-		params = new Object[] { "user2", "test@test.it", "password", 1 };
+		query = "INSERT INTO users (name, username, password, points) VALUES (?, ?, ?, ?)";
+		params = new Object[] { "name", "user2", "password", 1 };
 		core.pool.update(query, params);
 
-		query = "INSERT INTO users (username, email, password, points) VALUES (?, ?, ?, ?)";
-		params = new Object[] { "user3", "test@test.at", "password", 30 };
+		query = "INSERT INTO users (name, username, email, password, points) VALUES (?, ?, ?, ?)";
+		params = new Object[] { "name", "user3", "password", 30 };
 		core.pool.update(query, params);
 	}
 

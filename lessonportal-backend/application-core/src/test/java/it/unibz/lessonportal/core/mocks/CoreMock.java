@@ -9,7 +9,7 @@ import it.unibz.dbConnector.ConnectionPool;
 public class CoreMock {
 
 	public ConnectionPool pool;
-	public static final String username = "username", email = "test@test.test";
+	public static final String username = "username", name = "User";
 	public static final int lessonId = 13;
 
 

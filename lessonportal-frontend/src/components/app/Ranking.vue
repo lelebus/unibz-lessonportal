@@ -23,7 +23,7 @@ export default {
           text: "Position",
           value: "position",
           align: "center",
-          sortable: false,
+          sortable: true,
         },
         { text: "User", value: "username", align: "center", sortable: false },
         { text: "Points", value: "points", align: "center", sortable: false },

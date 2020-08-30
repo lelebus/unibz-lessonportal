@@ -28,7 +28,7 @@ public class LessonGetters {
 				// no comments
 			}
 
-			lessons.add(new LearnedLesson(rs.getInt("id"), rs.getString("title"), rs.getString("description"), comments, username, rs.getString("rating")));
+			lessons.add(new LearnedLesson(rs.getInt("id"), rs.getString("title"), rs.getString("description"), comments, rs.getString("username"), rs.getString("rating")));
 		}
 		rs.getStatement().getConnection().close();
 
@@ -36,16 +36,20 @@ public class LessonGetters {
 	}
 
 	protected static LearnedLesson get(ConnectionPool pool, int id, String username) throws Exception {
-		String query = "SELECT id, title, description, comments, username, rating FROM lessons l FULL JOIN lessonslearned ll ON l.id = ll.lesson WHERE ll.username = ? OR ll.username IS NULL AND l.id = ?";
+		String query = "SELECT id, title, description, comments, username, rating FROM lessons l FULL JOIN lessonslearned ll ON l.id = ll.lesson WHERE (ll.username = ? OR ll.username IS NULL) AND l.id = ?";
 		Object[] args = new Object[] { username, id };
+		System.out.println(args[0] + "" + args[1]);
 
 		ResultSet rs = pool.query(query, args);
 		if (rs.next()) {
+			System.out.println("rsnext");
 			LinkedList<Comment> comments = new LinkedList<Comment>();
 
 			try {
+				System.out.println(rs.getString("comments"));
 				comments = Comment.parseJSONArrayString(rs.getString("comments"));
 			} catch (NullPointerException e) {
+				System.out.println("no comments");
 				// no comments
 			}
 

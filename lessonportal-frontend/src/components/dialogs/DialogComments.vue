@@ -51,7 +51,7 @@
 export default {
   name: "ModalComments",
   props: {
-    comments: Array,
+    lessonId: Number,
   },
   data: () => ({
     dialog: false,
@@ -62,19 +62,28 @@ export default {
       if (!this.commentMessage.length >= 1) {
         return;
       }
-      console.log("Comment sent");
-      // TODO send data
-      let returnedComment = {
-        timestamp: "Now",
-        username: "me",
-        message: this.commentMessage,
-      };
-      // TODO append comment and clear input
-      this.comments.push(returnedComment);
+
+      this.$store
+        .dispatch("saveLesson", {
+          id: this.lessonId,
+          comment: this.commentMessage,
+        })
+        .then();
+
+      // this.$store.dispatch("fetchLesson", this.lessonId)
+
       // TODO: scroll to bottom
       this.commentMessage = "";
     },
   },
+  computed: {
+    comments() {
+      if (this.lessonId == null) {
+        return;
+      }
+      return this.$store.getters.lesson(this.lessonId).comments;
+    }
+  }
 };
 </script>
 

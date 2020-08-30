@@ -19,6 +19,7 @@ class UserMutationsTest extends UserMutations {
 	@BeforeAll
 	static void setUp() throws Exception {
 		core = new CoreMock();
+		
 		// cleanUp DB
 		String query = "DELETE FROM users WHERE username != ?";
 		Object[] params = new Object[] { CoreMock.username };
@@ -31,13 +32,13 @@ class UserMutationsTest extends UserMutations {
 		@Test
 		void testInsert() {
 			assertDoesNotThrow(() -> {
-				User newUser = new User("newuser", "new@user.test", "password", 0, 0);
+				User newUser = new User("Name", "newuser", "password", 0, 0);
 				assertEquals(1, UserMutations.insert(core.pool, newUser));
 				
-				String query = "SELECT email FROM users WHERE username = ?";
+				String query = "SELECT name FROM users WHERE username = ?";
 				ResultSet rs = core.pool.query(query, new Object[] {"newuser"});
 				rs.next();
-				assertEquals("new@user.test", rs.getString("email"));
+				assertEquals("Name", rs.getString("name"));
 
 				rs.getStatement().getConnection().close();
 			});
@@ -46,19 +47,11 @@ class UserMutationsTest extends UserMutations {
 		@Test
 		void testUniqueUsername() {
 			Exception thrown = assertThrows(SQLException.class, () -> {
-				User newUser = new User(CoreMock.username, "unique@username.test", "password", 0, 0);
+				User newUser = new User("Name", CoreMock.username, "password", 0, 0);
 				UserMutations.insert(core.pool, newUser);
 			});
+			System.out.println(thrown.toString());
 			assertTrue(thrown.toString().contains("unique constraint \"users_pkey\""));
-		}
-
-		@Test
-		void testUniqueEmail() {
-			Exception thrown = assertThrows(SQLException.class, () -> {
-				User newUser = new User("uniqueEmailUser", "test@test.test", "password", 0, 0);
-				UserMutations.insert(core.pool, newUser);
-			});
-			assertTrue(thrown.toString().contains("unique constraint \"users_email_key\""));
 		}
 
 	}
@@ -66,7 +59,7 @@ class UserMutationsTest extends UserMutations {
 	@Test
 	void testSetPoints() {
 		assertDoesNotThrow(() -> {
-			User newUser = new User(CoreMock.username, "test@test.test", "password", 0, 10);
+			User newUser = new User("Name", CoreMock.username, "password", 0, 10);
 			assertEquals(1, UserMutations.setPoints(core.pool, newUser));
 			
 			String query = "SELECT points FROM users WHERE username = ?";
@@ -81,7 +74,7 @@ class UserMutationsTest extends UserMutations {
 	@Test
 	void testSetPassword() {
 		assertDoesNotThrow(() -> {
-			User newUser = new User(CoreMock.username, "test@test.test", "password", 1, 0);
+			User newUser = new User("Name", CoreMock.username, "password", 1, 0);
 			assertEquals(1, UserMutations.setPassword(core.pool, newUser));
 			
 			String query = "SELECT resetcount FROM users WHERE username = ?";

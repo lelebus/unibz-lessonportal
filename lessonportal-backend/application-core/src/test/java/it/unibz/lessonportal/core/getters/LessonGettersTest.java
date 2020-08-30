@@ -40,14 +40,14 @@ class LessonGettersTest extends LessonGetters {
 	@Test
 	void testGetAll() throws Exception {
 		int lessonId2 = 1998;
-		
+
 		String query = "INSERT INTO lessons (id, title, addedBy) VALUES (?, ?, ?)";
-		Object[] params = new Object[] {lessonId2, "newlesson", CoreMock.username};
+		Object[] params = new Object[] { lessonId2, "newlesson", CoreMock.username };
 		core.pool.update(query, params);
-		
+
 		ArrayList<LearnedLesson> lessons = LessonGetters.getAll(core.pool, CoreMock.username);
 		assertTrue(lessons.size() >= 2);
-		
+
 		Boolean foundLesson1 = false, foundLesson2 = false;
 		for (Lesson l : lessons) {
 			if (l.getId() == CoreMock.lessonId) {
@@ -58,5 +58,11 @@ class LessonGettersTest extends LessonGetters {
 		}
 		assertTrue(foundLesson1);
 		assertTrue(foundLesson2);
+	}
+
+	@Test
+	void testGetComments() throws Exception {
+		Lesson lesson = LessonGetters.get(core.pool, CoreMock.lessonId, CoreMock.username);
+		assertEquals(comments, lesson.getComments());
 	}
 }

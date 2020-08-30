@@ -75,7 +75,7 @@
                           <v-text-field
                             v-model="username"
                             label="Username"
-                            :rules="[v => !!v || 'Username is required']"
+                            :rules="[v => !!v || 'Username is required', rules.lowercase]"
                             color="purple"
                             required
                           ></v-text-field>
@@ -99,7 +99,7 @@
                 </v-card-text>
                 <v-card-actions class="center-container">
                   <v-btn
-                    @click="login"
+                    @click="register"
                     :loading="loading"
                     class="center-x"
                     dark
@@ -114,23 +114,17 @@
       </v-dialog>
     </v-row>
 
-    <notify-success ref="successNotification" message="Lesson has been created successfully"></notify-success>
-    <notify-failure
-      ref="failureNotification"
-      message="An error occurred in creating new lesson. Try again."
-    ></notify-failure>
+    <notify-failure ref="failureNotification" :message="errorMessage"></notify-failure>
   </div>
 </template>
 
 
 <script>
-import NotifySuccess from "@/components/snackbars/NotifySuccess";
 import NotifyFailure from "@/components/snackbars/NotifyFailure";
 
 export default {
   name: "ModalLogin",
   components: {
-    NotifySuccess,
     NotifyFailure,
   },
   data: () => {
@@ -141,7 +135,11 @@ export default {
       name: "",
       username: "",
       password: "",
+      errorMessage: "Error occurred. Try again.",
       rules: {
+        lowercase: (v) =>
+          (v || "").match(/^(?=.*[a-z]).+$/) ||
+          "Username can be composed of only lowercase letters",
         length: (len) => (v) =>
           (v || "").length >= len ||
           `This field must be at least ${len} characters long`,
@@ -156,7 +154,39 @@ export default {
   },
   methods: {
     login() {
-      console.log("login");
+      this.$store
+        .dispatch("login", { username: this.username, password: this.password })
+        .then(() => {
+          this.$store.dispatch("fetchLessons");
+          this.$store.dispatch("fetchRanking");
+
+          this.$refs.form.reset();
+          this.validFormInput = false;
+        })
+        .catch(e => {
+          this.errorMessage = e.toString()
+          this.$refs.failureNotification.snackbar = true;
+        });
+    },
+    register() {
+      this.$store
+        .dispatch("register", { name: this.name, username: this.username, password: this.password })
+        .then(() => {
+          this.login()
+        })
+        .catch( e => {
+          this.errorMessage = e.toString()
+          this.$refs.failureNotification.snackbar = true;
+        });
+    },
+  },
+  computed: {
+    loading() {
+      if (this.dialog == false) return false;
+      return this.$store.state.loading;
+    },
+    dialog() {
+      return this.$store.state.user == null;
     },
   },
 };

@@ -16,7 +16,7 @@ class UserTest {
 
 	@BeforeAll
 	static void setUp() {
-		user = new User(CoreMock.username, CoreMock.email, "password", 0, 0);
+		user = new User(CoreMock.name, CoreMock.username, "password", 0, 0);
 	}
 
 	@Nested
@@ -34,7 +34,7 @@ class UserTest {
 		@Test
 		void testMatchingPassword() {
 			String password = "password";
-			User user = new User("username", "test@test.test");
+			User user = new User("username");
 			user.setPassword(password);
 			assertTrue(user.checkPassword(password));
 		}
@@ -42,7 +42,7 @@ class UserTest {
 		@Test
 		void testNotMatchingPassword() {
 			String password = "password";
-			User user = new User("username", "test@test.test");
+			User user = new User("username");
 			user.setPassword(password);
 			assertFalse(user.checkPassword("wrongpwd"));
 		}

@@ -3,6 +3,7 @@ package it.unibz.lessonportal.core;
 import java.util.LinkedHashMap;
 import org.mindrot.jbcrypt.BCrypt;
 
+import it.unibz.lessonportal.core.exceptions.InvalidInputException;
 import it.unibz.lessonportal.core.getters.Ranking;
 import it.unibz.lessonportal.core.getters.UserGetters;
 import it.unibz.lessonportal.core.mutations.UserMutations;
@@ -10,21 +11,28 @@ import it.unibz.lessonportal.core.mutations.UserMutations;
 public class User {
 	private static int logRounds = 12;
 	private int resetCount, points;
-	private String username, email, password;
+	private String name, username, password;
 	
-	public User(String username, String email) {
+	public User(String username) {
 		this.username = username;
-		this.email = email;
 		this.resetCount = 0;
 		this.points = 0;
 	}
 	
-	public User(String username, String email, String password, int resetCount, int points) {
+	public User(String name, String username, String password, int resetCount, int points) {
+		this.name = name;
 		this.username = username;
-		this.email = email;
 		this.password = password;
 		this.resetCount = resetCount;
 		this.points = points;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public int getResetCount() {
@@ -38,11 +46,7 @@ public class User {
 	public String getUsername() {
 		return username;
 	}
-
-	public String getEmail() {
-		return email;
-	}
-
+	
 	public String getPassword() {
 		return password;
 	}
@@ -87,13 +91,18 @@ public class User {
 	}
 	
 	public class Mutation extends UserMutations {
-		public boolean setNewUser(String password) {
+		public boolean setNewUser(String password) throws InvalidInputException {
 			User.this.setPassword(password);
-			
+
+			System.out.println(User.this.getName());
+			System.out.println(User.this.getUsername());
+			System.out.println(User.this.getPassword());
 			try {
 				insert(PortalCore.pool, User.this);
 			} catch (Exception e) {
-				System.out.println(e.toString());
+				if (e.toString().contains("unique constraint \"users_pkey\"")) {
+					throw new InvalidInputException("This username is already associated to an account");
+				}
 				System.out.println("ERROR:: creating new user");
 				e.printStackTrace();
 				return false;

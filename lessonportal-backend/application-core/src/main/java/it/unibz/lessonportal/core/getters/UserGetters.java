@@ -8,12 +8,12 @@ import it.unibz.lessonportal.core.User;
 public class UserGetters {
 
 	protected static User get(ConnectionPool pool, String username) throws Exception {
-		String query = "SELECT email, password, resetcount, points FROM users WHERE username = ?";
+		String query = "SELECT name, password, resetcount, points FROM users WHERE username = ?";
 		Object[] args = new Object[] { username };
 
 		ResultSet rs = pool.query(query, args);
 		if (rs.next()) {
-			return new User(username, rs.getString("email"), rs.getString("password"), rs.getInt("resetcount"), rs.getInt("points"));
+			return new User(rs.getString("name"), username, rs.getString("password"), rs.getInt("resetcount"), rs.getInt("points"));
 		}
 		rs.getStatement().getConnection().close();
 

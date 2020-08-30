@@ -16,18 +16,29 @@ public class Lesson {
 
 	public Lesson(int id) {
 		this.id = id;
+		this.comments = new LinkedList<Comment>();
 	}
-	
+
 	public Lesson(String title, String description) {
 		this.title = title;
 		this.description = description;
+		if (description == null) {
+			this.description = "";
+		}
+		this.comments = new LinkedList<Comment>();
 	}
 
 	public Lesson(int id, String title, String description, LinkedList<Comment> comments) {
 		this.id = id;
 		this.title = title;
 		this.description = description;
+		if (description == null) {
+			this.description = "";
+		}
 		this.comments = comments;
+		if (comments == null) {
+			this.comments = new LinkedList<Comment>();
+		}
 	}
 
 	public int getId() {
@@ -49,7 +60,7 @@ public class Lesson {
 	public LinkedList<Comment> getComments() {
 		return comments;
 	}
-	
+
 	public static class Query extends LessonGetters {
 		public static LearnedLesson getLesson(int id, String username) {
 			try {
@@ -73,14 +84,15 @@ public class Lesson {
 	}
 
 	public class Mutation extends LessonMutations {
-		public int setNewLesson(String username) {
+		public boolean setNewLesson(String username) {
 			try {
-				return insert(PortalCore.pool, username, Lesson.this);
+				Lesson.this.id = insert(PortalCore.pool, username, Lesson.this);
 			} catch (Exception e) {
 				System.out.println("ERROR:: creating new lesson");
 				e.printStackTrace();
-				return -1;
+				return false; // TODO set 500 status in httpserver response
 			}
+			return true;
 		}
 
 		public boolean setLessonComplete(String username) {
@@ -94,7 +106,7 @@ public class Lesson {
 				e.printStackTrace();
 				return false;
 			}
-			
+
 			// TODO: assign points (+20)
 			return true;
 		}

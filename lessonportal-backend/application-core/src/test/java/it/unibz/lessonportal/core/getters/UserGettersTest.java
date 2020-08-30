@@ -20,6 +20,6 @@ class UserGettersTest extends UserGetters {
 	@Test
 	void testGetUser() throws Exception {
 		User u = UserGetters.get(core.pool, CoreMock.username);
-		assertEquals(CoreMock.email, u.getEmail());
+		assertEquals(CoreMock.name, u.getName());
 	}
 }

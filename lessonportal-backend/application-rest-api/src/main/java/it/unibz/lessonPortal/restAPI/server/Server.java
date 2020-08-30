@@ -19,6 +19,6 @@ public class Server {
 	
 	public void up() {
 		Vertx vertx = Vertx.vertx();
-		vertx.deployVerticle(new HTTPServerVerticle(8080));
+		vertx.deployVerticle(new HTTPServerVerticle(4000));
 	}
 }

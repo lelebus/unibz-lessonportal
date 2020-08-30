@@ -11,3 +11,8 @@ REST API:
 
 /ranking
     - GET return ranking list of users
+
+
+
+DOCUMENTATION:
+you can just modify the query in the DAL for returning just lessons created by the user

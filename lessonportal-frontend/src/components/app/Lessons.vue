@@ -10,7 +10,7 @@
       hide-default-footer
     >
       <template v-slot:item.completed="{ item }">
-        <v-icon v-if="item.completed" color="red lighten-1">mdi-check-circle-outline</v-icon>
+        <v-icon v-if="item.complete == true" color="red lighten-1">mdi-check-circle-outline</v-icon>
       </template>
 
       <template v-slot:item.likes="{ item }">
@@ -51,7 +51,7 @@ export default {
   data() {
     return {
       dialog: false,
-      selectedLesson: Object,
+      selectedLesson: null,
       headers: [
         { text: "Title", value: "title", align: "start" },
         { text: "Completed", value: "completed", align: "center" },
@@ -61,8 +61,8 @@ export default {
     };
   },
   computed: {
-    loading() {
-      return this.$store.state.loading;
+      loading() {
+        return this.$store.state.loading;
     },
   },
 };

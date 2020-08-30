@@ -18,7 +18,7 @@
           </v-card-title>
           <v-card-text>{{item.description}}</v-card-text>
 
-          <v-card-actions v-if="item.completed == false" class="center-container">
+          <v-card-actions v-if="item.complete != true" class="center-container">
             <v-btn
               @click="completeLesson"
               :loading="loading"
@@ -28,7 +28,7 @@
             >Mark as completed</v-btn>
           </v-card-actions>
 
-          <v-card-actions v-if="item.completed == true">
+          <v-card-actions v-if="item.complete == true">
             <v-badge
               :content="item.comments.length"
               :value="item.comments.length"
@@ -53,7 +53,7 @@
             <v-btn color="blue darken-1" text @click="saveLesson" :loading="loading">Save</v-btn>
           </v-card-actions>
         </v-card>
-        <modal-comments ref="commentsModal" :comments="item.comments"></modal-comments>
+        <modal-comments ref="commentsModal" :lessonId="id"></modal-comments>
       </v-dialog>
     </v-row>
 
@@ -64,7 +64,7 @@
     ></notify-failure>
   </div>
 </template>
-
+  
 <script>
 import ModalComments from "@/components/dialogs/DialogComments";
 import NotifySuccess from "@/components/snackbars/NotifySuccess";
@@ -78,7 +78,7 @@ export default {
     NotifyFailure,
   },
   props: {
-    id: Number,
+    id: null,
   },
   methods: {
     completeLesson() {
@@ -115,8 +115,14 @@ export default {
       return this.$store.state.loading;
     },
     item() {
+      if (this.id == null) {
+        return;
+      }
       return this.$store.getters.lesson(this.id);
     },
+    currentUser() {
+      return this.$store.state.user.username;
+    }
   },
 };
 </script>
