@@ -29,8 +29,6 @@ public class RankingEndpoint implements AbstractServiceEndpoint {
 			}
 
 			LinkedHashMap<String, Integer> ranking = User.RankingQuery.getRanking();
-			System.out.println("ranking");
-			System.out.println(ranking);
 			if (ranking != null) {
 				JSONArray rankingList = new JSONArray();
 				int position = 1;

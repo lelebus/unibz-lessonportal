@@ -15,6 +15,7 @@ public class User extends it.unibz.gamification.User {
 	
 	public User(String username) {
 		super(username);
+		this.name = "";
 		this.resetCount = 0;
 	}
 	
@@ -26,7 +27,11 @@ public class User extends it.unibz.gamification.User {
 	}
 	
 	public String getUsername() {
-		return getUsername();
+		return super.getUsername();
+	}
+	
+	public int getPoints() {
+		return super.getPoints();
 	}
 	
 	public String getName() {

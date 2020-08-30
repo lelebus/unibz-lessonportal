@@ -9,8 +9,7 @@ public class Ranking {
 	
 	public static LinkedHashMap<String, Integer> getDesc(ConnectionPool pool) throws Exception {
 		LinkedHashMap<String, Integer> rankingList = new LinkedHashMap<String, Integer>();
-
-		String query = "SELECT username, points FROM users ORDER BY points ASC;";
+		String query = "SELECT username, points FROM users ORDER BY points DESC;";
 		
 		ResultSet rs = pool.query(query);
 		while (rs.next()) {

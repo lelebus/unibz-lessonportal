@@ -6,6 +6,8 @@ import it.unibz.lessonportal.core.User;
 public class UserMutations {
 
 	public static int insert(ConnectionPool pool, User user) throws Exception {
+		System.out.println(user.getName());
+		System.out.println(user.getUsername());
 		String query = "INSERT INTO users (name, username, password, resetcount, points) VALUES (?, ?, ?, ?, ?);";
 		Object[] params = new Object[] { user.getName(), user.getUsername(), user.getPassword(), user.getResetCount(),
 				user.getPoints() };

@@ -27,7 +27,7 @@ class RankingTest {
 		params = new Object[] { "name", "user2", "password", 1 };
 		core.pool.update(query, params);
 
-		query = "INSERT INTO users (name, username, email, password, points) VALUES (?, ?, ?, ?)";
+		query = "INSERT INTO users (name, username, password, points) VALUES (?, ?, ?, ?)";
 		params = new Object[] { "name", "user3", "password", 30 };
 		core.pool.update(query, params);
 	}
@@ -37,10 +37,10 @@ class RankingTest {
 		LinkedHashMap<String, Integer> ranking = Ranking.getDesc(core.pool);
 		assertTrue(ranking.size() >= 2, "Wrong size of rankingList");
 
-		int max = 0;
 		Collection<Integer> values = ranking.values();
+		int max = (int) values.toArray()[0];
 		for (int points : values) {
-			assertTrue(points >= max, "Wrong ranking order");
+			assertTrue(points <= max, "Wrong ranking order");
 			max = points;
 		}
 	}
