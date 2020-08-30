@@ -4,12 +4,9 @@ import java.sql.ResultSet;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import it.unibz.dbConnector.ConnectionPool;
 import it.unibz.lessonportal.core.Comment;
 import it.unibz.lessonportal.core.LearnedLesson;
-import it.unibz.lessonportal.core.Lesson;
-import it.unibz.lessonportal.core.Lesson.Query;
 
 public class LessonGetters {
 	protected static ArrayList<LearnedLesson> getAll(ConnectionPool pool, String username) throws Exception {
@@ -40,6 +37,7 @@ public class LessonGetters {
 		Object[] args = new Object[] { username, id };
 		System.out.println(args[0] + "" + args[1]);
 
+		LearnedLesson lesson = null;
 		ResultSet rs = pool.query(query, args);
 		if (rs.next()) {
 			System.out.println("rsnext");
@@ -53,11 +51,11 @@ public class LessonGetters {
 				// no comments
 			}
 
-			return new LearnedLesson(rs.getInt("id"), rs.getString("title"), rs.getString("description"), comments, username, rs.getString("rating"));
+			lesson = new LearnedLesson(rs.getInt("id"), rs.getString("title"), rs.getString("description"), comments, username, rs.getString("rating"));
 		}
+		
 		rs.getStatement().getConnection().close();
-
-		return null;
+		return lesson;
 	}
 
 }

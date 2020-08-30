@@ -8,23 +8,21 @@ import it.unibz.lessonportal.core.getters.Ranking;
 import it.unibz.lessonportal.core.getters.UserGetters;
 import it.unibz.lessonportal.core.mutations.UserMutations;
 
-public class User {
+public class User extends it.unibz.gamification.User {
 	private static int logRounds = 12;
-	private int resetCount, points;
-	private String name, username, password;
+	private int resetCount;
+	private String name, password;
 	
 	public User(String username) {
-		this.username = username;
+		super(username);
 		this.resetCount = 0;
-		this.points = 0;
 	}
 	
-	public User(String name, String username, String password, int resetCount, int points) {
+	public User(String name, String username, String password, int resetCount, int points) throws it.unibz.gamification.exceptions.InvalidInputException {
+		super(username, points);
 		this.name = name;
-		this.username = username;
 		this.password = password;
 		this.resetCount = resetCount;
-		this.points = points;
 	}
 	
 	public String getName() {
@@ -37,14 +35,6 @@ public class User {
 
 	public int getResetCount() {
 		return resetCount;
-	}
-
-	public int getPoints() {
-		return points;
-	}
-
-	public String getUsername() {
-		return username;
 	}
 	
 	public String getPassword() {
@@ -93,10 +83,6 @@ public class User {
 	public class Mutation extends UserMutations {
 		public boolean setNewUser(String password) throws InvalidInputException {
 			User.this.setPassword(password);
-
-			System.out.println(User.this.getName());
-			System.out.println(User.this.getUsername());
-			System.out.println(User.this.getPassword());
 			try {
 				insert(PortalCore.pool, User.this);
 			} catch (Exception e) {
@@ -111,16 +97,21 @@ public class User {
 		}		
 		
 		public boolean setPoints(int points) {
-			int rollbackPoints = User.this.points;
+			int rollbackPoints = User.this.getPoints();
 			
-			User.this.points = points;
+			User.super.setPoints(points);
 			try {
+
+				System.out.println("before");
+				System.out.println(User.this.getUsername());
 				setPoints(PortalCore.pool, User.this);
+
+				System.out.println("here");
 			} catch (Exception e) {
 				System.out.println("ERROR:: setting points for user");
 				e.printStackTrace();
 				
-				User.this.points = rollbackPoints;
+				User.super.setPoints(rollbackPoints);
 				return false;
 			}
 			

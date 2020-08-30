@@ -3,7 +3,7 @@ package it.unibz.gamification.test.mocks.tasks;
 import it.unibz.gamification.annotations.RemovePoints;
 import it.unibz.gamification.Task;
 
-public class Task2 implements Task {
+public class MinusTaskMock implements Task {
 
 	@Override
 	@RemovePoints(2)

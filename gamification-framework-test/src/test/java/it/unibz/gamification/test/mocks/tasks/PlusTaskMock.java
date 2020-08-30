@@ -4,7 +4,7 @@ package it.unibz.gamification.test.mocks.tasks;
 import it.unibz.gamification.Task;
 import it.unibz.gamification.annotations.AddPoints;
 
-public class Task1 implements Task {
+public class PlusTaskMock implements Task {
 
 	@Override
 	@AddPoints(3)

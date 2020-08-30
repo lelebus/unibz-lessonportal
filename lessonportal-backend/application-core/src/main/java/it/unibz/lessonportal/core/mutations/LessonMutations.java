@@ -18,8 +18,8 @@ public class LessonMutations {
 			rs.getStatement().getConnection().close();
 			return id;
 		}
+		
 		rs.getStatement().getConnection().close();
-
 		return -1;
 	}
 	

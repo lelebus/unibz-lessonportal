@@ -4,7 +4,7 @@ import it.unibz.gamification.exceptions.InvalidInputException;
 
 public class User {
 
-	public String username;
+	private String username;
 	private int points;
 
 	public User(String username) {
@@ -14,10 +14,6 @@ public class User {
 
 	public User(String username, int points) throws InvalidInputException {
 		this.username = username;
-
-		if (points < 0) {
-			throw new InvalidInputException("Annotation value cannot be negative");
-		}
 		this.points = points;
 	}
 
@@ -26,6 +22,7 @@ public class User {
 			throw new InvalidInputException("Annotation value cannot be negative");
 		}
 		this.points += points;
+		System.out.println(this.points);
 	}
 
 	public void removePoints(int points) throws InvalidInputException {
@@ -41,5 +38,9 @@ public class User {
 
 	public void setPoints(int points) {
 		this.points = points;
+	}
+	
+	public String getUsername() {
+		return username;
 	}
 }

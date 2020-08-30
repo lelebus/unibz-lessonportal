@@ -4,11 +4,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
 
 import it.unibz.dbConnector.ConnectionPool;
-import it.unibz.lessonportal.core.Lesson.Mutation;
+import it.unibz.gamification.GamificationFacade;
+import it.unibz.gamification.GamificationFacadeSingleton;
+import it.unibz.lessonportal.core.gamification.listener.UpdatePointsListener;
 
 public class PortalCore {
 
@@ -19,6 +19,9 @@ public class PortalCore {
 		pool = new ConnectionPool(dbURL, dbUser, dbUserPassword);
 //		TODO: readProperties
 		initDatabase("lessonportal.sql");
+		
+		GamificationFacade gamification = GamificationFacadeSingleton.getInstance();
+		gamification.addCallback(new UpdatePointsListener());
 	}
 
 	private void initDatabase(String filename) throws Exception {

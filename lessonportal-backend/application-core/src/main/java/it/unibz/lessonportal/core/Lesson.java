@@ -1,9 +1,12 @@
 package it.unibz.lessonportal.core;
 
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import it.unibz.gamification.GamificationFacade;
+import it.unibz.gamification.GamificationFacadeSingleton;
+import it.unibz.gamification.UserRegistry;
+import it.unibz.lessonportal.core.gamification.tasks.CompleteLessonTask;
 import it.unibz.lessonportal.core.getters.LessonGetters;
 import it.unibz.lessonportal.core.mutations.LessonMutations;
 
@@ -107,7 +110,10 @@ public class Lesson {
 				return false;
 			}
 
-			// TODO: assign points (+20)
+			GamificationFacade gamification = GamificationFacadeSingleton.getInstance();
+			UserRegistry.setCurrentUser(User.Query.getUser(username));
+			gamification.execute(new CompleteLessonTask());
+			
 			return true;
 		}
 	}

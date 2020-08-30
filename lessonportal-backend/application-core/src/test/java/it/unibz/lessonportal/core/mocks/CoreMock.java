@@ -5,8 +5,9 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import it.unibz.dbConnector.ConnectionPool;
+import it.unibz.lessonportal.core.PortalCore;
 
-public class CoreMock {
+public class CoreMock extends PortalCore{
 
 	public ConnectionPool pool;
 	public static final String username = "username", name = "User";
@@ -14,7 +15,8 @@ public class CoreMock {
 
 
 	public CoreMock() throws Exception {
-		pool = new ConnectionPool("jdbc:postgresql://localhost:5432/testportal", "username", "password");
+		super("jdbc:postgresql://localhost:5432/testportal", "username", "password");
+		pool = super.pool;
 //		TODO: readProperties
 		initDatabase("lessontestportal.sql");
 		try {

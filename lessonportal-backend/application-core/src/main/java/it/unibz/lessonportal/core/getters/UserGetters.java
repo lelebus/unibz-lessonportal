@@ -11,13 +11,14 @@ public class UserGetters {
 		String query = "SELECT name, password, resetcount, points FROM users WHERE username = ?";
 		Object[] args = new Object[] { username };
 
+		User user = null;
 		ResultSet rs = pool.query(query, args);
 		if (rs.next()) {
-			return new User(rs.getString("name"), username, rs.getString("password"), rs.getInt("resetcount"), rs.getInt("points"));
+			user = new User(rs.getString("name"), username, rs.getString("password"), rs.getInt("resetcount"), rs.getInt("points"));
 		}
 		rs.getStatement().getConnection().close();
 
-		return null;
+		return user;
 	}
 	
 }
