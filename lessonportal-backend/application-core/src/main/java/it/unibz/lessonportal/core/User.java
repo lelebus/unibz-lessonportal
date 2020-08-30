@@ -25,6 +25,10 @@ public class User extends it.unibz.gamification.User {
 		this.resetCount = resetCount;
 	}
 	
+	public String getUsername() {
+		return getUsername();
+	}
+	
 	public String getName() {
 		return name;
 	}

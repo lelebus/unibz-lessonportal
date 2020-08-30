@@ -76,14 +76,4 @@ class UserTest {
 		assertEquals(10, user.getPoints());
 	}
 
-	@Test
-	@DisplayName("Test negative input in constructor")
-	void testNegativeInput() {
-		Exception thrown = assertThrows(InvalidInputException.class, () -> {
-			new User("username", -1);
-		});
-				
-		assertTrue(thrown.getMessage().contains("negative"));
-	}
-
 }

@@ -7,7 +7,7 @@
 		<artifactId>lessonportal-backend</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>lessonportal.rest-api</artifactId>
+	<artifactId>lessonportal-rest-api</artifactId>
 	<name>application-rest-api</name>
 
 	<properties>
@@ -43,6 +43,12 @@
 			<groupId>com.auth0</groupId>
 			<artifactId>java-jwt</artifactId>
 			<version>3.10.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>it.unibz</groupId>
+			<artifactId>lessonportal-core</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 

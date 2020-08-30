@@ -7,6 +7,33 @@
 		<artifactId>lessonportal-backend</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>lessonportal.runner</artifactId>
+	<artifactId>lessonportal-runner</artifactId>
 	<name>application-runner</name>
+
+	<dependencies>
+		<dependency>
+			<groupId>it.unibz</groupId>
+			<artifactId>lessonportal-core</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>it.unibz</groupId>
+			<artifactId>lessonportal-rest-api</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
+				<configuration>
+					<source>${maven.compiler.source}</source>
+					<target>${maven.compiler.target}</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

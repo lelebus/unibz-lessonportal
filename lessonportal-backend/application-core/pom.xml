@@ -7,7 +7,7 @@
 		<artifactId>lessonportal-backend</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>lessonPortal.core</artifactId>
+	<artifactId>lessonportal-core</artifactId>
 	<name>application-core</name>
 
 	<properties>
@@ -25,6 +25,17 @@
 			<groupId>org.mindrot</groupId>
 			<artifactId>jbcrypt</artifactId>
 			<version>0.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>it.unibz</groupId>
+			<artifactId>gamification-framework</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>it.unibz</groupId>
+			<artifactId>sql-connector</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 

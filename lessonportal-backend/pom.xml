@@ -7,10 +7,14 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>lessonportal-backend</name>
-	
+
+	<properties>
+		<maven.compiler.source>11</maven.compiler.source>
+		<maven.compiler.target>11</maven.compiler.target>
+	</properties>
+
 	<modules>
 		<module>application-rest-api</module>
-		<module>application-sql-connector</module>
 		<module>application-core</module>
 		<module>application-runner</module>
 	</modules>

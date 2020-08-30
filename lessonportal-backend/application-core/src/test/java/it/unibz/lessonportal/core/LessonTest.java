@@ -1,14 +1,11 @@
 package it.unibz.lessonportal.core;
 
-import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.sql.SQLException;
 import java.util.LinkedList;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 

@@ -26,6 +26,12 @@
 			<version>${junit-jupiter.version}</version>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>it.unibz</groupId>
+			<artifactId>gamification-framework</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 	<build>
