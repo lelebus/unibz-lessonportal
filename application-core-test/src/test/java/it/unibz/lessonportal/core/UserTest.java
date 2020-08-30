@@ -11,8 +11,6 @@ import it.unibz.lessonportal.core.mocks.CoreMock;
 
 class UserTest {
 
-//	TODO
-
 	static CoreMock core;
 	static User user;
 
@@ -65,10 +63,25 @@ class UserTest {
 	}
 	
 	@Test
+	void testInvalidInputException() {
+		fail("todo");
+	}
+	
+	@Test
 	void testSetPoints()  {
 		User user = User.Query.getUser(CoreMock.username);
 		user.new Mutation().setPoints(13);
 		assertEquals(13, User.Query.getUser(CoreMock.username).getPoints());
+	}
+	
+	@Test
+	void testGetUser() {
+		fail("todo");
+	}
+	
+	@Test
+	void testGetRanking() {
+		fail("todo");
 	}
 
 }

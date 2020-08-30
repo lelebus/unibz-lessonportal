@@ -15,7 +15,7 @@ public class SQLStatement {
 		PreparedStatement stmt = connection.prepareStatement(query);
 		for (int i = 0; i < params.length; i++) {
 			switch (getType(params[i])) {
-			case "int":
+			case "Integer":
 				stmt.setInt(i + 1, (int) params[i]);
 				break;
 			case "Double":
@@ -35,9 +35,9 @@ public class SQLStatement {
 		return stmt;
 	}
 
-	private static String getType(Object obj) {
+	public static String getType(Object obj) {
 		if (obj instanceof Integer) {
-			return "int";
+			return "Integer";
 		} else if (obj instanceof Double) {
 			return "Double";
 		} else if (obj instanceof String) {

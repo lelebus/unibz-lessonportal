@@ -99,6 +99,26 @@ class LessonTest {
 			lesson.new Mutation().setRating("dislike");
 			assertEquals(2, User.Query.getUser(CoreMock.username).getPoints());
 		}
+		
+		@Test
+		void testUndoLike() {
+			// TODO
+		}
+		
+		@Test
+		void testUndoLikeAndDislike() {
+			// TODO
+		}
+		
+		@Test
+		void testUndoDislike() {
+			// TODO
+		}
+		
+		@Test
+		void testUndoDislikeAndLike() {
+			// TODO
+		}
 
 		@Test
 		void testInvalidUsername() {
@@ -131,7 +151,16 @@ class LessonTest {
 				lesson.new Mutation().setComment("new Comment");
 			});
 		}
-
+		
 	}
-
+	
+	@Test
+	void testGetLesson() {
+		fail("todo");
+	}
+	
+	@Test
+	void testGetLessons() {
+		fail("todo");
+	}
 }

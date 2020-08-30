@@ -85,6 +85,14 @@ class CommentTest {
 				assertEquals(comments.get(i), parsedComments.get(i));
 			}
 		}
+		
+		@Test
+		void testInvalidJSONTimestamp() {
+			String invalidJSONString = "[{\"message\":\"message\",\"timestamp\":\"11:11:11 11/11/2011\",\"username\":\"username\"},{\"message\":\"message\",\"timestamp\":\"12:12:12 12-12-2012\",\"username\":\"username\"}]";
+			assertThrows(InvalidJSONFieldException.class, () -> {
+				Comment.parseJSONArrayString(invalidJSONString);
+			});
+		}
 	}
 
 }
